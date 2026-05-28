@@ -1,0 +1,32 @@
+aid: bored
+name: Bored
+description: "Find random activities to fight boredom"
+url: https://www.boredapi.com/
+specificationVersion: '0.20'
+created: '2026-05-28'
+modified: '2026-05-28'
+x-source: public-apis/public-apis
+x-category: "Development"
+x-tier: 3
+x-tier-reason: bulk-registered-from-public-apis
+tags:
+  - Development
+  - Public APIs
+apis:
+  - name: Bored
+    description: "Find random activities to fight boredom"
+    humanURL: https://www.boredapi.com/
+    baseURL: https://www.boredapi.com/
+    tags:
+      - Development
+    properties:
+      - type: Documentation
+        url: https://www.boredapi.com/
+common:
+  - type: Website
+    url: https://www.boredapi.com/
+  - type: PublicAPIsListing
+    url: https://github.com/public-apis/public-apis
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
