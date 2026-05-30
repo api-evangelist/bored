@@ -1,0 +1,33 @@
+name: Bored API Vocabulary
+provider: Bored API
+providerId: bored
+description: Domain vocabulary for the Bored API surface; covers activity, fact, riddle, and website entities exposed by the canonical Drew Thoennes Bored-API project and the App Brewery community fork.
+terms:
+  - term: Activity
+    description: A suggestion for something to do when bored. Each activity has a type, participants, price, accessibility, optional link, and unique key.
+  - term: Fact
+    description: A factual statement (v2 only). Each fact has the fact text, an optional source URL, and a unique key.
+  - term: Riddle
+    description: A question-and-answer pair (v2 only) with one of three difficulty levels — easy, normal, hard.
+  - term: Website
+    description: A recommendation pointing to an interesting external website (v2 only). Each entry has a URL, a description, and a unique key.
+  - term: Suggestion
+    description: A community-submitted activity, fact, riddle, or website queued for moderator review (v2 only).
+  - term: Type
+    description: Activity category. Canonical values are charity, cooking, music, diy, education, social, busywork, recreational, relaxation.
+  - term: Participants
+    description: Integer number of people required to perform an activity. Filterable by exact value or as a min/max range.
+  - term: Price
+    description: Cost dimension. V1 expresses price as a 0.0–1.0 decimal; v2 expresses price as a 1–5 dollar-sign ladder ($ through $$$$$).
+  - term: Accessibility
+    description: How easy an activity is to do. V1 expresses accessibility as a 0.0–1.0 decimal; v2 expresses accessibility as one of three labels — Few to no challenges, Minor challenges, Major challenges.
+  - term: Availability
+    description: How available the activity is at the time of suggestion (v2 only) — 0.0 (always available) through 1.0 (rarely available).
+  - term: Duration
+    description: How long the activity takes (v2 only) — one of minutes, hours, days, weeks.
+  - term: KidFriendly
+    description: Boolean flag (v2 only) marking whether the activity is appropriate for children.
+  - term: Key
+    description: Unique string identifier for each activity, fact, riddle, or website record.
+  - term: Difficulty
+    description: Riddle difficulty level — easy, normal, or hard.

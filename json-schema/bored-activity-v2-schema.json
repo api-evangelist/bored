@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bored/json-schema/bored-activity-v2-schema.json",
+  "title": "BoredActivityV2",
+  "description": "Bored API v2 activity. Accessibility is enumerated text; price is a 1–5 dollar-sign ladder.",
+  "type": "object",
+  "required": [
+    "activity",
+    "type",
+    "participants",
+    "price",
+    "accessibility",
+    "duration",
+    "kidFriendly",
+    "key"
+  ],
+  "properties": {
+    "activity": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "charity",
+        "cooking",
+        "music",
+        "diy",
+        "education",
+        "social",
+        "busywork",
+        "recreational",
+        "relaxation"
+      ]
+    },
+    "participants": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "price": {
+      "type": "string",
+      "pattern": "^\\$+$"
+    },
+    "accessibility": {
+      "type": "string",
+      "enum": [
+        "Few to no challenges",
+        "Minor challenges",
+        "Major challenges"
+      ]
+    },
+    "duration": {
+      "type": "string",
+      "enum": ["minutes", "hours", "days", "weeks"]
+    },
+    "kidFriendly": {
+      "type": "boolean"
+    },
+    "link": {
+      "type": "string"
+    },
+    "key": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

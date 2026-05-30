@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://www.boredapi.com/api/v2/suggestions",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "activity": {
+        "activity": "Build a small Raspberry Pi weather station",
+        "type": "diy",
+        "participants": 1
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "message": "Successfully created suggestion"
+    }
+  }
+}

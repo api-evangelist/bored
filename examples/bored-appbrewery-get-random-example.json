@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://bored-api.appbrewery.com/random"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "activity": "Go to a concert with local artists with some friends",
+      "availability": 0.3,
+      "type": "social",
+      "participants": 3,
+      "price": 0.4,
+      "accessibility": "Minor challenges",
+      "duration": "hours",
+      "kidFriendly": true,
+      "link": "",
+      "key": "2211716"
+    }
+  }
+}

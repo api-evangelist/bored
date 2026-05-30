@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "BoredActivityV1",
+  "type": "object",
+  "properties": {
+    "activity": { "type": "string" },
+    "type": { "type": "string" },
+    "participants": { "type": "integer" },
+    "price": { "type": "number" },
+    "accessibility": { "type": "number" },
+    "link": { "type": "string" },
+    "key": { "type": "string" }
+  }
+}

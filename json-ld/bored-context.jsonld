@@ -1,0 +1,91 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "bored": "https://www.boredapi.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Activity": {
+      "@id": "bored:Activity",
+      "@context": {
+        "id": "@id",
+        "activity": "schema:name",
+        "type": {
+          "@id": "schema:category",
+          "@type": "@vocab"
+        },
+        "participants": {
+          "@id": "bored:participants",
+          "@type": "xsd:integer"
+        },
+        "price": "bored:price",
+        "accessibility": "bored:accessibility",
+        "availability": {
+          "@id": "bored:availability",
+          "@type": "xsd:decimal"
+        },
+        "duration": "bored:duration",
+        "kidFriendly": {
+          "@id": "schema:audience",
+          "@type": "xsd:boolean"
+        },
+        "link": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "key": "schema:identifier"
+      }
+    },
+
+    "Fact": {
+      "@id": "bored:Fact",
+      "@context": {
+        "id": "@id",
+        "fact": "schema:text",
+        "source": {
+          "@id": "schema:isBasedOn",
+          "@type": "@id"
+        },
+        "key": "schema:identifier"
+      }
+    },
+
+    "Riddle": {
+      "@id": "bored:Riddle",
+      "@context": {
+        "id": "@id",
+        "question": "schema:question",
+        "answer": "schema:acceptedAnswer",
+        "difficulty": "bored:difficulty",
+        "source": {
+          "@id": "schema:isBasedOn",
+          "@type": "@id"
+        },
+        "key": "schema:identifier"
+      }
+    },
+
+    "Website": {
+      "@id": "bored:Website",
+      "@context": {
+        "id": "@id",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "description": "schema:description",
+        "key": "schema:identifier"
+      }
+    },
+
+    "Suggestion": {
+      "@id": "bored:Suggestion",
+      "@context": {
+        "activity": "bored:Activity",
+        "fact": "bored:Fact",
+        "riddle": "bored:Riddle",
+        "website": "bored:Website"
+      }
+    }
+  }
+}

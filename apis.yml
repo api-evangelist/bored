@@ -1,32 +1,257 @@
 aid: bored
-name: Bored
-description: "Find random activities to fight boredom"
-url: https://www.boredapi.com/
+name: Bored API
+description: >-
+  The Bored API is a free, open-source, no-authentication public API that
+  serves suggestions for things to do when you are bored. The canonical
+  reference implementation is an MEVN (MongoDB / Express / Vue / Node)
+  project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API
+  (MIT licensed). The historically hosted instance at https://www.boredapi.com/
+  has been intermittently or fully unreachable since June 2024 (originally
+  hosted on Heroku); a community fork maintained by The App Brewery at
+  https://bored-api.appbrewery.com remains actively available for students
+  and consumers. This profile documents the v1 surface (legacy
+  activities-only), the v2 surface (activities + facts + riddles + websites +
+  suggestions), and the App Brewery community mirror, so the API contract is
+  preserved as a historical, self-hostable artifact.
+url: https://github.com/drewthoennes/Bored-API
+humanURL: https://github.com/drewthoennes/Bored-API
 specificationVersion: '0.20'
+type: Index
+access: 3rd-Party
+kind: opensource
 created: '2026-05-28'
-modified: '2026-05-28'
+modified: '2026-05-30'
+position: Consumer
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+x-type: opensource
+x-status: hosted-instance-deprecated
 x-source: public-apis/public-apis
-x-category: "Development"
+x-category: Development
 x-tier: 3
 x-tier-reason: bulk-registered-from-public-apis
 tags:
+  - Activities
+  - Boredom
+  - Community
   - Development
+  - Discovery
+  - Education
+  - Facts
+  - Free
+  - MEVN
+  - No Auth
+  - Open Source
   - Public APIs
+  - Recreation
+  - Riddles
+  - Suggestions
+  - Websites
 apis:
-  - name: Bored
-    description: "Find random activities to fight boredom"
-    humanURL: https://www.boredapi.com/
-    baseURL: https://www.boredapi.com/
+  - aid: bored:bored-api
+    name: Bored API (Canonical)
+    description: >-
+      Canonical Drew Thoennes Bored API surface, covering v1 (legacy
+      activities) and v2 (activities + facts + riddles + websites +
+      suggestions). No authentication. The hosted instance at
+      www.boredapi.com has been unreliable since 2024; the spec is preserved
+      for self-hosting.
+    humanURL: https://github.com/drewthoennes/Bored-API
+    baseURL: https://www.boredapi.com
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     tags:
-      - Development
+      - Activities
+      - Facts
+      - Riddles
+      - Websites
+      - Suggestions
+      - REST
+      - No Auth
+    type: REST
     properties:
       - type: Documentation
-        url: https://www.boredapi.com/
+        url: https://github.com/drewthoennes/Bored-API#readme
+        name: README on GitHub
+      - type: SourceCode
+        url: https://github.com/drewthoennes/Bored-API
+        name: Drew Thoennes Bored-API on GitHub
+      - type: OpenAPI
+        url: openapi/bored-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/bored-activity-v1-schema.json
+      - type: JSONSchema
+        url: json-schema/bored-activity-v2-schema.json
+      - type: JSONSchema
+        url: json-schema/bored-fact-schema.json
+      - type: JSONSchema
+        url: json-schema/bored-riddle-schema.json
+      - type: JSONSchema
+        url: json-schema/bored-website-schema.json
+      - type: JSONSchema
+        url: json-schema/bored-suggestion-schema.json
+      - type: JSONStructure
+        url: json-structure/bored-activity-v1-structure.json
+      - type: JSONStructure
+        url: json-structure/bored-activity-v2-structure.json
+      - type: JSONStructure
+        url: json-structure/bored-fact-structure.json
+      - type: JSONStructure
+        url: json-structure/bored-riddle-structure.json
+      - type: JSONStructure
+        url: json-structure/bored-website-structure.json
+      - type: Example
+        url: examples/bored-api-get-random-activity-v1-example.json
+      - type: Example
+        url: examples/bored-api-get-random-activity-v1-filtered-example.json
+      - type: Example
+        url: examples/bored-api-get-random-activity-v2-example.json
+      - type: Example
+        url: examples/bored-api-get-activity-by-key-v2-example.json
+      - type: Example
+        url: examples/bored-api-get-random-fact-example.json
+      - type: Example
+        url: examples/bored-api-get-random-riddle-example.json
+      - type: Example
+        url: examples/bored-api-get-random-website-example.json
+      - type: Example
+        url: examples/bored-api-submit-suggestion-example.json
+      - type: NaftikoCapability
+        url: capabilities/activities.yaml
+      - type: NaftikoCapability
+        url: capabilities/facts.yaml
+      - type: NaftikoCapability
+        url: capabilities/riddles.yaml
+      - type: NaftikoCapability
+        url: capabilities/websites.yaml
+      - type: NaftikoCapability
+        url: capabilities/suggestions.yaml
+    x-features:
+      - No authentication required (free, open API)
+      - Random activity discovery with multi-dimensional filters (type, participants, price, accessibility)
+      - Min/max range filters for participants, price, and accessibility
+      - V1 (numeric accessibility/price) and v2 (enumerated accessibility, dollar-sign price ladder) shapes
+      - Facts, riddles (with difficulty), and websites endpoints (v2)
+      - Community suggestion submission for activities, facts, riddles, and websites
+      - Self-hostable as a standard MEVN project (MongoDB + Express + Vue + Node)
+    x-use-cases:
+      - I'm Bored Alexa skill
+      - Discord and Slack bot commands for spontaneous activity suggestions
+      - Onboarding sample API for tutorials and bootcamps
+      - Mobile activity-finder applications (iOS, Android)
+      - Decision-fatigue helper tools and browser extensions
+  - aid: bored:bored-appbrewery
+    name: Bored API (App Brewery Community Fork)
+    description: >-
+      Community-hosted mirror of the Bored API maintained by The App Brewery
+      for their web development course. Provides a flattened path scheme
+      (/random, /filter, /activity/{key}) on bored-api.appbrewery.com and is
+      rate-limited to 100 requests per 15 minutes. No authentication.
+    humanURL: https://bored-api.appbrewery.com/
+    baseURL: https://bored-api.appbrewery.com
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    tags:
+      - Activities
+      - Community Fork
+      - Education
+      - REST
+      - No Auth
+    type: REST
+    properties:
+      - type: Documentation
+        url: https://bored-api.appbrewery.com/
+        name: App Brewery Bored API Documentation
+      - type: OpenAPI
+        url: openapi/bored-appbrewery-openapi.yml
+      - type: RateLimits
+        url: https://bored-api.appbrewery.com/
+        name: 100 requests per 15 minutes
+      - type: Example
+        url: examples/bored-appbrewery-get-random-example.json
+      - type: Example
+        url: examples/bored-appbrewery-filter-example.json
+      - type: NaftikoCapability
+        url: capabilities/appbrewery-activities.yaml
+    x-features:
+      - Active hosted mirror (the original boredapi.com is unreliable)
+      - Flatter path scheme (/random, /filter, /activity/{key})
+      - Built-in 100 req / 15 min rate limit
+      - Refined activity shape with enumerated accessibility and duration
+      - Used in The App Brewery web development curriculum
+    x-use-cases:
+      - Student exercises and bootcamp lessons
+      - Demos for HTTP clients, fetch/axios tutorials
+      - Drop-in replacement for projects originally targeting boredapi.com
 common:
   - type: Website
     url: https://www.boredapi.com/
+    name: Bored API Website (Historic)
+  - type: Portal
+    url: https://bored-api.appbrewery.com/
+    name: App Brewery Hosted Mirror
+  - type: GitHub
+    url: https://github.com/drewthoennes/Bored-API
+    name: Canonical GitHub Repository
+  - type: SourceCode
+    url: https://github.com/drewthoennes/Bored-API
+    name: Drew Thoennes Bored-API Source
+  - type: Documentation
+    url: https://github.com/drewthoennes/Bored-API#readme
+    name: README Documentation
+  - type: License
+    url: https://github.com/drewthoennes/Bored-API/blob/master/license
+    name: MIT License
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
+    name: Listed in public-apis/public-apis
+  - type: SDK
+    url: https://pypi.org/project/bored/
+    name: Python wrapper (bored on PyPI)
+  - type: SDK
+    url: https://pypi.org/project/bored-api/
+    name: Alternate Python wrapper (bored-api on PyPI)
+  - type: SDK
+    url: https://gitlab.com/CMDR_Tvis/bored-api
+    name: Kotlin wrapper
+  - type: JSONLD
+    url: json-ld/bored-context.jsonld
+  - type: Spectral
+    url: rules/bored-rules.yml
+  - type: Vocabulary
+    url: vocabulary/bored-vocabulary.yml
+  - type: Features
+    data:
+      - name: Free and open
+        description: No API key, no auth, no signup required.
+      - name: Multi-dimensional filtering
+        description: Activities can be filtered by type, participants, price, and accessibility — including min/max ranges.
+      - name: Versioned surface
+        description: V1 (legacy) and v2 (extended with facts, riddles, websites, suggestions) coexist.
+      - name: Self-hostable
+        description: MIT-licensed MEVN stack — clone, npm install, run against a local MongoDB.
+      - name: Community-extensible
+        description: V2 suggestions endpoint accepts new activity, fact, riddle, and website submissions for moderator review.
+  - type: UseCases
+    data:
+      - name: Boredom busters
+        description: I'm Bored Alexa skill, Discord bots, browser extensions for spontaneous activity ideas.
+      - name: Teaching API
+        description: Sample API used in many web-development bootcamps (notably The App Brewery course) for fetch/axios/HTTP exercises.
+      - name: Mobile apps
+        description: iOS and Android apps that surface random activities to users.
+      - name: Decision support
+        description: Helper tools that recommend low-cost, low-participant activities when users can't decide what to do.
+    description: Common use cases for the Bored API across hobbyist and educational projects.
+  - type: Integrations
+    data:
+      - name: Amazon Alexa
+        description: I'm Bored Alexa skill consuming the Bored API for spoken suggestions.
+      - name: Python (PyPI)
+        description: bored and bored-api Python wrappers on PyPI.
+      - name: Kotlin
+        description: CMDR_Tvis Kotlin wrapper on GitLab.
+      - name: iOS App Store
+        description: Bored — Find What to Do iOS app.
+      - name: The App Brewery
+        description: Used as the canonical fetch/axios teaching API in The App Brewery's web-development course.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "BoredRiddle",
+  "type": "object",
+  "properties": {
+    "question": { "type": "string" },
+    "answer": { "type": "string" },
+    "difficulty": { "type": "string" },
+    "source": { "type": "string" },
+    "key": { "type": "string" }
+  }
+}

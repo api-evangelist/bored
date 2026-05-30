@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bored/json-schema/bored-activity-v1-schema.json",
+  "title": "BoredActivityV1",
+  "description": "Bored API v1 activity. Accessibility is a 0.0–1.0 decimal; price is a 0.0–1.0 decimal.",
+  "type": "object",
+  "required": ["activity", "type", "participants", "price", "key"],
+  "properties": {
+    "activity": {
+      "type": "string",
+      "description": "Human-readable description of the activity."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "charity",
+        "cooking",
+        "music",
+        "diy",
+        "education",
+        "social",
+        "busywork",
+        "recreational",
+        "relaxation"
+      ]
+    },
+    "participants": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "accessibility": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "link": {
+      "type": "string",
+      "format": "uri"
+    },
+    "key": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

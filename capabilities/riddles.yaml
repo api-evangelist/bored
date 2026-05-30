@@ -1,0 +1,52 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bored API — Riddles
+  description: 'Random riddle lookup for the Bored API v2 surface. Wraps /api/v2/riddles and /api/v2/riddles/{key}. Supports difficulty filter (easy|normal|hard).'
+  tags:
+    - Bored
+    - Riddles
+    - Discovery
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds: []
+capability:
+  consumes:
+    - type: http
+      namespace: riddles
+      baseUri: https://www.boredapi.com
+      description: Bored API v2 riddles business capability. No authentication required.
+      resources:
+        - name: api-v2-riddles
+          path: /api/v2/riddles
+          operations:
+            - name: getRandomRiddle
+              method: GET
+              description: Get a random riddle.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.riddle
+              inputParameters:
+                - name: difficulty
+                  in: query
+                  type: string
+        - name: api-v2-riddles-key
+          path: /api/v2/riddles/{key}
+          operations:
+            - name: getRiddleByKey
+              method: GET
+              description: Get a riddle by key.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.riddle
+              inputParameters:
+                - name: key
+                  in: path
+                  type: string
+                  required: true
+                - name: difficulty
+                  in: query
+                  type: string

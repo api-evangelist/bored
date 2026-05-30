@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bored/json-schema/bored-suggestion-schema.json",
+  "title": "BoredSuggestion",
+  "description": "Suggestion request body. Exactly one of activity, fact, riddle, or website must be supplied.",
+  "type": "object",
+  "oneOf": [
+    { "required": ["activity"] },
+    { "required": ["fact"] },
+    { "required": ["riddle"] },
+    { "required": ["website"] }
+  ],
+  "properties": {
+    "activity": {
+      "type": "object",
+      "required": ["activity", "type", "participants"],
+      "properties": {
+        "activity": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "education",
+            "recreational",
+            "social",
+            "diy",
+            "charity",
+            "cooking",
+            "relaxation",
+            "music",
+            "busywork"
+          ]
+        },
+        "participants": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "fact": {
+      "type": "object",
+      "required": ["fact", "source"],
+      "properties": {
+        "fact": { "type": "string" },
+        "source": { "type": "string", "format": "uri" }
+      }
+    },
+    "riddle": {
+      "type": "object",
+      "required": ["question", "answer", "source"],
+      "properties": {
+        "question": { "type": "string" },
+        "answer": { "type": "string" },
+        "source": { "type": "string", "format": "uri" }
+      }
+    },
+    "website": {
+      "type": "object",
+      "required": ["url", "description"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

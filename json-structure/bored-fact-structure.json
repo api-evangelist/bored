@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "BoredFact",
+  "type": "object",
+  "properties": {
+    "fact": { "type": "string" },
+    "source": { "type": "string" },
+    "key": { "type": "string" }
+  }
+}

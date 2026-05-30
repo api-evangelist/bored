@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://www.boredapi.com/api/v2/websites"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "website": {
+        "url": "https://thisissand.com/",
+        "description": "Create digital sand art in your browser.",
+        "key": "9988776"
+      }
+    }
+  }
+}

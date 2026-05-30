@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://www.boredapi.com/api/activity?type=recreational&minparticipants=2&maxprice=0.3"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "activity": "Go for a walk with a friend",
+      "accessibility": 0.1,
+      "type": "recreational",
+      "participants": 2,
+      "price": 0,
+      "key": "8120956"
+    }
+  }
+}

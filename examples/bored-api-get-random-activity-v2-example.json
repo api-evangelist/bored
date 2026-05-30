@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://www.boredapi.com/api/v2/activities?type=education"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "activity": {
+        "activity": "Learn Express.js",
+        "accessibility": "Few to no challenges",
+        "type": "education",
+        "participants": 1,
+        "price": "$",
+        "duration": "hours",
+        "kidFriendly": true,
+        "link": "https://expressjs.com/",
+        "key": "3943506"
+      }
+    }
+  }
+}

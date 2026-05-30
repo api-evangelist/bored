@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bored/json-schema/bored-fact-schema.json",
+  "title": "BoredFact",
+  "type": "object",
+  "required": ["fact", "key"],
+  "properties": {
+    "fact": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "format": "uri"
+    },
+    "key": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

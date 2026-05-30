@@ -1,0 +1,64 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bored API App Brewery Fork — Activities
+  description: 'Random and filtered activity discovery against the App Brewery hosted mirror of the Bored API. Wraps /random, /filter, /activity/{key} on bored-api.appbrewery.com. Rate limited to 100 requests per 15 minutes.'
+  tags:
+    - Bored
+    - Activities
+    - Discovery
+    - App Brewery
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds: []
+capability:
+  consumes:
+    - type: http
+      namespace: appbrewery-activities
+      baseUri: https://bored-api.appbrewery.com
+      description: App Brewery community-hosted mirror of the Bored API activities surface.
+      resources:
+        - name: random
+          path: /random
+          operations:
+            - name: getRandom
+              method: GET
+              description: Get a random activity.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+        - name: filter
+          path: /filter
+          operations:
+            - name: filterActivities
+              method: GET
+              description: Filter activities by type and/or participants.
+              outputRawFormat: json
+              outputParameters:
+                - name: results
+                  type: array
+                  value: $.
+              inputParameters:
+                - name: type
+                  in: query
+                  type: string
+                - name: participants
+                  in: query
+                  type: integer
+        - name: activity-key
+          path: /activity/{key}
+          operations:
+            - name: getActivityByKey
+              method: GET
+              description: Get an activity by key.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: key
+                  in: path
+                  type: string
+                  required: true

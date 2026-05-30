@@ -1,0 +1,97 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bored API — Activities
+  description: 'Random activity discovery for the Bored API. Wraps v1 (/api/activity) and v2 (/api/v2/activities) random + filter + by-key surfaces. Self-contained Naftiko capability covering the activity business surface.'
+  tags:
+    - Bored
+    - Activities
+    - Discovery
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds: []
+capability:
+  consumes:
+    - type: http
+      namespace: activities
+      baseUri: https://www.boredapi.com
+      description: Bored API activities business capability. No authentication. Self-contained, no shared references.
+      resources:
+        - name: api-activity
+          path: /api/activity
+          operations:
+            - name: getRandomActivity
+              method: GET
+              description: Get a random activity (v1 shape).
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: type
+                  in: query
+                  type: string
+                - name: participants
+                  in: query
+                  type: integer
+                - name: minparticipants
+                  in: query
+                  type: integer
+                - name: maxparticipants
+                  in: query
+                  type: integer
+                - name: price
+                  in: query
+                  type: number
+                - name: minprice
+                  in: query
+                  type: number
+                - name: maxprice
+                  in: query
+                  type: number
+                - name: accessibility
+                  in: query
+                  type: number
+                - name: key
+                  in: query
+                  type: string
+        - name: api-v2-activities
+          path: /api/v2/activities
+          operations:
+            - name: getRandomActivityV2
+              method: GET
+              description: Get a random activity (v2 shape with envelope).
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.activity
+              inputParameters:
+                - name: type
+                  in: query
+                  type: string
+                - name: participants
+                  in: query
+                  type: integer
+                - name: price
+                  in: query
+                  type: string
+                - name: availability
+                  in: query
+                  type: number
+        - name: api-v2-activities-key
+          path: /api/v2/activities/{key}
+          operations:
+            - name: getActivityByKeyV2
+              method: GET
+              description: Get a v2 activity by unique key.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.activity
+              inputParameters:
+                - name: key
+                  in: path
+                  type: string
+                  required: true

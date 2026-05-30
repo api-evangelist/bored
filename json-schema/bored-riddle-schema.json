@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bored/json-schema/bored-riddle-schema.json",
+  "title": "BoredRiddle",
+  "type": "object",
+  "required": ["question", "answer", "difficulty", "key"],
+  "properties": {
+    "question": { "type": "string" },
+    "answer": { "type": "string" },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "normal", "hard"]
+    },
+    "source": {
+      "type": "string",
+      "format": "uri"
+    },
+    "key": { "type": "string" }
+  },
+  "additionalProperties": false
+}

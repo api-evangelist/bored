@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://www.boredapi.com/api/v2/facts"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "fact": {
+        "fact": "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still edible.",
+        "source": "https://en.wikipedia.org/wiki/Honey",
+        "key": "1024834"
+      }
+    }
+  }
+}

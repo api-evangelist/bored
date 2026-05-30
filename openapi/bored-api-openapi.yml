@@ -1,0 +1,791 @@
+openapi: 3.0.3
+info:
+  title: Bored API
+  version: '2.0.0'
+  summary: A Free and Simple API to Help You Find Something Better to Do
+  description: >-
+    The Bored API is a free, no-authentication public API that returns
+    suggestions for things to do when you are bored. The canonical
+    implementation is the open-source MEVN (MongoDB / Express / Vue / Node)
+    project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API.
+    The historically hosted instance at https://www.boredapi.com/ has been
+    intermittently or fully unreachable since 2024 (originally hosted on
+    Heroku); community mirrors such as https://bored-api.appbrewery.com
+    continue to serve the dataset. This specification documents both the v1
+    (legacy, activities-only) and v2 (activities + facts + riddles + websites
+    + suggestions) surfaces of the canonical Drew Thoennes implementation so
+    the API contract is preserved for self-hosting and historical reference.
+  contact:
+    name: Drew Thoennes
+    url: https://github.com/drewthoennes/Bored-API
+  license:
+    name: MIT
+    url: https://github.com/drewthoennes/Bored-API/blob/master/license
+  x-status: deprecated-hosted-instance
+  x-status-notes: >-
+    The official hosted instance at https://www.boredapi.com/ is no longer
+    reliably reachable. The reference implementation remains open source and
+    can be self-hosted. The App Brewery community fork
+    (https://bored-api.appbrewery.com) provides an actively maintained hosted
+    mirror with a slightly different path scheme.
+servers:
+  - url: https://www.boredapi.com
+    description: Original hosted instance (historically; intermittent / dead as of 2024)
+  - url: http://localhost:8080
+    description: Self-hosted local instance (npm install && npm start)
+tags:
+  - name: Activities
+    description: Random and filtered activity suggestions.
+  - name: Facts
+    description: Random or keyed factual snippets (v2 only).
+  - name: Riddles
+    description: Random or keyed riddles with difficulty filter (v2 only).
+  - name: Websites
+    description: Random or keyed website recommendations (v2 only).
+  - name: Suggestions
+    description: Community-submitted content suggestions for review (v2 only).
+paths:
+  /api/activity:
+    get:
+      tags:
+        - Activities
+      summary: Get a Random Activity
+      description: >-
+        Returns a single random activity, optionally filtered by type,
+        participant count, price range, accessibility (availability), or
+        a specific activity key. Identical to /api/v1/activity.
+      operationId: getRandomActivity
+      parameters:
+        - $ref: '#/components/parameters/TypeParam'
+        - $ref: '#/components/parameters/ParticipantsParam'
+        - $ref: '#/components/parameters/MinParticipantsParam'
+        - $ref: '#/components/parameters/MaxParticipantsParam'
+        - $ref: '#/components/parameters/PriceParam'
+        - $ref: '#/components/parameters/MinPriceParam'
+        - $ref: '#/components/parameters/MaxPriceParam'
+        - $ref: '#/components/parameters/AccessibilityParamV1'
+        - $ref: '#/components/parameters/MinAccessibilityParamV1'
+        - $ref: '#/components/parameters/MaxAccessibilityParamV1'
+        - $ref: '#/components/parameters/KeyParam'
+      responses:
+        '200':
+          description: A random activity matching any supplied filters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV1'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v1/activity:
+    get:
+      tags:
+        - Activities
+      summary: Get a Random Activity (V1)
+      description: >-
+        V1-versioned alias of /api/activity. Returns the legacy v1 activity
+        shape where accessibility is a number from 0.0 to 1.0.
+      operationId: getRandomActivityV1
+      parameters:
+        - $ref: '#/components/parameters/TypeParam'
+        - $ref: '#/components/parameters/ParticipantsParam'
+        - $ref: '#/components/parameters/MinParticipantsParam'
+        - $ref: '#/components/parameters/MaxParticipantsParam'
+        - $ref: '#/components/parameters/PriceParam'
+        - $ref: '#/components/parameters/MinPriceParam'
+        - $ref: '#/components/parameters/MaxPriceParam'
+        - $ref: '#/components/parameters/AccessibilityParamV1'
+        - $ref: '#/components/parameters/MinAccessibilityParamV1'
+        - $ref: '#/components/parameters/MaxAccessibilityParamV1'
+        - $ref: '#/components/parameters/KeyParam'
+      responses:
+        '200':
+          description: A random activity matching any supplied filters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV1'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/activities:
+    get:
+      tags:
+        - Activities
+      summary: Get a Random Activity (V2)
+      description: >-
+        V2 surface. Returns a single random activity wrapped in an envelope
+        object. V2 introduces enumerated accessibility (Few to no challenges,
+        Minor challenges, Major challenges), a categorical price ($..$$$$$),
+        and additional fields (duration, kidFriendly).
+      operationId: getRandomActivityV2
+      parameters:
+        - $ref: '#/components/parameters/TypeParam'
+        - $ref: '#/components/parameters/ParticipantsParam'
+        - $ref: '#/components/parameters/MinParticipantsParam'
+        - $ref: '#/components/parameters/MaxParticipantsParam'
+        - $ref: '#/components/parameters/PriceParamV2'
+        - $ref: '#/components/parameters/MinPriceParamV2'
+        - $ref: '#/components/parameters/MaxPriceParamV2'
+        - $ref: '#/components/parameters/AvailabilityParamV2'
+        - $ref: '#/components/parameters/MinAvailabilityParamV2'
+        - $ref: '#/components/parameters/MaxAvailabilityParamV2'
+      responses:
+        '200':
+          description: A random activity wrapped in an activity envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV2Envelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/activities/{key}:
+    get:
+      tags:
+        - Activities
+      summary: Get an Activity by Key (V2)
+      description: Look up a single activity by its unique key.
+      operationId: getActivityByKeyV2
+      parameters:
+        - $ref: '#/components/parameters/KeyPathParam'
+      responses:
+        '200':
+          description: The activity matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV2Envelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/facts:
+    get:
+      tags:
+        - Facts
+      summary: Get a Random Fact
+      description: Returns a single random fact wrapped in an envelope.
+      operationId: getRandomFact
+      responses:
+        '200':
+          description: A random fact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/facts/{key}:
+    get:
+      tags:
+        - Facts
+      summary: Get a Fact by Key
+      description: Returns the fact matching the supplied key.
+      operationId: getFactByKey
+      parameters:
+        - $ref: '#/components/parameters/KeyPathParam'
+      responses:
+        '200':
+          description: The fact matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/riddles:
+    get:
+      tags:
+        - Riddles
+      summary: Get a Random Riddle
+      description: >-
+        Returns a single random riddle, optionally filtered by difficulty
+        (easy, normal, hard).
+      operationId: getRandomRiddle
+      parameters:
+        - name: difficulty
+          in: query
+          description: Filter riddles by difficulty.
+          required: false
+          schema:
+            type: string
+            enum:
+              - easy
+              - normal
+              - hard
+      responses:
+        '200':
+          description: A random riddle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiddleEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/riddles/{key}:
+    get:
+      tags:
+        - Riddles
+      summary: Get a Riddle by Key
+      description: Returns the riddle matching the supplied key.
+      operationId: getRiddleByKey
+      parameters:
+        - $ref: '#/components/parameters/KeyPathParam'
+        - name: difficulty
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - easy
+              - normal
+              - hard
+      responses:
+        '200':
+          description: The riddle matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiddleEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/websites:
+    get:
+      tags:
+        - Websites
+      summary: Get a Random Website
+      description: Returns a single random website recommendation.
+      operationId: getRandomWebsite
+      responses:
+        '200':
+          description: A random website.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/websites/{key}:
+    get:
+      tags:
+        - Websites
+      summary: Get a Website by Key
+      description: Returns the website matching the supplied key.
+      operationId: getWebsiteByKey
+      parameters:
+        - $ref: '#/components/parameters/KeyPathParam'
+      responses:
+        '200':
+          description: The website matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/suggestions:
+    post:
+      tags:
+        - Suggestions
+      summary: Submit a Content Suggestion
+      description: >-
+        Submit a community suggestion for a new activity, fact, riddle, or
+        website. Exactly one of activity, fact, riddle, or website must be
+        supplied. Suggestions are queued for moderator review and are not
+        immediately visible in the live API.
+      operationId: submitSuggestion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestionRequest'
+      responses:
+        '200':
+          description: Suggestion accepted and queued for review.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    TypeParam:
+      name: type
+      in: query
+      description: Filter activities by category type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - charity
+          - cooking
+          - music
+          - diy
+          - education
+          - social
+          - busywork
+          - recreational
+          - relaxation
+    ParticipantsParam:
+      name: participants
+      in: query
+      description: Filter to activities requiring an exact number of participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MinParticipantsParam:
+      name: minparticipants
+      in: query
+      description: Filter to activities requiring at least this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MaxParticipantsParam:
+      name: maxparticipants
+      in: query
+      description: Filter to activities requiring at most this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    PriceParam:
+      name: price
+      in: query
+      description: V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinPriceParam:
+      name: minprice
+      in: query
+      description: V1 — minimum price (0.0–1.0, inclusive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxPriceParam:
+      name: maxprice
+      in: query
+      description: V1 — maximum price (0.0–1.0, inclusive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    PriceParamV2:
+      name: price
+      in: query
+      description: >-
+        V2 — categorical price ladder. Supplied as 1–5 `$` characters
+        ("$" cheapest through "$$$$$" most expensive). Internally mapped to
+        a numeric value.
+      required: false
+      schema:
+        type: string
+        pattern: '^\$+$'
+        example: '$$'
+    MinPriceParamV2:
+      name: minprice
+      in: query
+      description: V2 — minimum price as 1–5 `$` characters.
+      required: false
+      schema:
+        type: string
+        pattern: '^\$+$'
+    MaxPriceParamV2:
+      name: maxprice
+      in: query
+      description: V2 — maximum price as 1–5 `$` characters.
+      required: false
+      schema:
+        type: string
+        pattern: '^\$+$'
+    AccessibilityParamV1:
+      name: accessibility
+      in: query
+      description: >-
+        V1 — accessibility (also called availability) as a decimal between
+        0.0 (most accessible) and 1.0 (least accessible).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinAccessibilityParamV1:
+      name: minaccessibility
+      in: query
+      description: V1 — minimum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxAccessibilityParamV1:
+      name: maxaccessibility
+      in: query
+      description: V1 — maximum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    AvailabilityParamV2:
+      name: availability
+      in: query
+      description: V2 — exact availability score as a decimal between 0.0 and 1.0.
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinAvailabilityParamV2:
+      name: minavailability
+      in: query
+      description: V2 — minimum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxAvailabilityParamV2:
+      name: maxavailability
+      in: query
+      description: V2 — maximum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    KeyParam:
+      name: key
+      in: query
+      description: Look up a single activity by its unique key.
+      required: false
+      schema:
+        type: string
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
+  schemas:
+    ActivityV1:
+      type: object
+      description: V1 activity. Returned directly (no envelope).
+      properties:
+        activity:
+          type: string
+          description: Human-readable description of the activity.
+          example: Learn Express.js
+        type:
+          type: string
+          description: Category of the activity.
+          enum:
+            - charity
+            - cooking
+            - music
+            - diy
+            - education
+            - social
+            - busywork
+            - recreational
+            - relaxation
+          example: education
+        participants:
+          type: integer
+          minimum: 1
+          description: Number of participants the activity requires.
+          example: 1
+        price:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal price ladder (0.0 = free, 1.0 = expensive).
+          example: 0.1
+        accessibility:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal accessibility (0.0 = most accessible, 1.0 = least).
+          example: 0.25
+        link:
+          type: string
+          format: uri
+          description: Optional reference URL with more information.
+          example: https://expressjs.com/
+        key:
+          type: string
+          description: Unique numeric string identifying the activity.
+          example: '3943506'
+      required:
+        - activity
+        - type
+        - participants
+        - price
+        - key
+    ActivityV2:
+      type: object
+      description: V2 activity. Adds duration, kidFriendly, categorical accessibility and price.
+      properties:
+        activity:
+          type: string
+          example: Learn how to play a new sport
+        type:
+          type: string
+          enum:
+            - charity
+            - cooking
+            - music
+            - diy
+            - education
+            - social
+            - busywork
+            - recreational
+            - relaxation
+          example: recreational
+        participants:
+          type: integer
+          minimum: 1
+          example: 1
+        price:
+          type: string
+          pattern: '^\$+$'
+          description: Categorical price expressed as 1–5 dollar signs.
+          example: '$'
+        accessibility:
+          type: string
+          enum:
+            - Few to no challenges
+            - Minor challenges
+            - Major challenges
+          example: Few to no challenges
+        duration:
+          type: string
+          enum:
+            - minutes
+            - hours
+            - days
+            - weeks
+          example: hours
+        kidFriendly:
+          type: boolean
+          example: true
+        link:
+          type: string
+          format: uri
+          example: ''
+        key:
+          type: string
+          example: '5808228'
+      required:
+        - activity
+        - type
+        - participants
+        - price
+        - accessibility
+        - duration
+        - kidFriendly
+        - key
+    ActivityV2Envelope:
+      type: object
+      properties:
+        activity:
+          $ref: '#/components/schemas/ActivityV2'
+      required:
+        - activity
+    Fact:
+      type: object
+      properties:
+        fact:
+          type: string
+          description: The factual statement.
+          example: Honey never spoils.
+        source:
+          type: string
+          format: uri
+          description: Optional URL backing the fact.
+          example: https://en.wikipedia.org/wiki/Honey
+        key:
+          type: string
+          description: Unique key for the fact.
+          example: '1234567'
+      required:
+        - fact
+        - key
+    FactEnvelope:
+      type: object
+      properties:
+        fact:
+          $ref: '#/components/schemas/Fact'
+      required:
+        - fact
+    Riddle:
+      type: object
+      properties:
+        question:
+          type: string
+          example: What has keys but can't open locks?
+        answer:
+          type: string
+          example: A piano.
+        difficulty:
+          type: string
+          enum:
+            - easy
+            - normal
+            - hard
+          default: normal
+          example: easy
+        source:
+          type: string
+          format: uri
+          description: Optional URL backing the riddle.
+          example: ''
+        key:
+          type: string
+          example: '7654321'
+      required:
+        - question
+        - answer
+        - difficulty
+        - key
+    RiddleEnvelope:
+      type: object
+      properties:
+        riddle:
+          $ref: '#/components/schemas/Riddle'
+      required:
+        - riddle
+    Website:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://thisissand.com/
+        description:
+          type: string
+          example: Create digital sand art in your browser.
+        key:
+          type: string
+          example: '9988776'
+      required:
+        - url
+        - description
+        - key
+    WebsiteEnvelope:
+      type: object
+      properties:
+        website:
+          $ref: '#/components/schemas/Website'
+      required:
+        - website
+    SuggestionRequest:
+      type: object
+      description: >-
+        Exactly one of activity, fact, riddle, or website must be supplied.
+      properties:
+        activity:
+          type: object
+          properties:
+            activity:
+              type: string
+            type:
+              type: string
+              enum:
+                - education
+                - recreational
+                - social
+                - diy
+                - charity
+                - cooking
+                - relaxation
+                - music
+                - busywork
+            participants:
+              type: integer
+              minimum: 1
+          required:
+            - activity
+            - type
+            - participants
+        fact:
+          type: object
+          properties:
+            fact:
+              type: string
+            source:
+              type: string
+              format: uri
+          required:
+            - fact
+            - source
+        riddle:
+          type: object
+          properties:
+            question:
+              type: string
+            answer:
+              type: string
+            source:
+              type: string
+              format: uri
+          required:
+            - question
+            - answer
+            - source
+        website:
+          type: object
+          properties:
+            url:
+              type: string
+              format: uri
+            description:
+              type: string
+          required:
+            - url
+            - description
+      oneOf:
+        - required: [activity]
+        - required: [fact]
+        - required: [riddle]
+        - required: [website]
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Successfully created suggestion
+      required:
+        - message
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+        - error
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

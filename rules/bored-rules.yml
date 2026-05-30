@@ -1,0 +1,140 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules for the Bored API surface.
+# These rules capture the conventions of the canonical Drew Thoennes
+# Bored-API project (github.com/drewthoennes/Bored-API) plus the
+# App Brewery community fork, encoding the cross-cutting style of the
+# API: HTTPS-only public endpoints, mandatory operationId, plain GET
+# endpoints, JSON-only responses, and stable enum values for type,
+# accessibility, duration, and difficulty.
+rules:
+  bored-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  bored-info-license:
+    description: API license information must be present (project is MIT).
+    severity: error
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  bored-https-public-server:
+    description: Public Bored API servers must use HTTPS.
+    severity: error
+    given: "$.servers[?(@.url && @.url.indexOf('boredapi.com') > -1)].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  bored-appbrewery-https:
+    description: App Brewery mirror server must use HTTPS.
+    severity: error
+    given: "$.servers[?(@.url && @.url.indexOf('appbrewery.com') > -1)].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  bored-operation-id:
+    description: Every operation must declare a unique operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  bored-operation-summary-title-case:
+    description: Operation summaries should be in Title Case.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  bored-operation-tag:
+    description: Every operation must declare at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  bored-activity-type-enum:
+    description: Activity type enum must use the canonical Bored API categories.
+    severity: warn
+    given: "$.components.schemas[?(@property=='ActivityV1' || @property=='ActivityV2' || @property=='Activity')].properties.type.enum"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+              - charity
+              - cooking
+              - music
+              - diy
+              - education
+              - social
+              - busywork
+              - recreational
+              - relaxation
+
+  bored-v2-accessibility-enum:
+    description: V2 accessibility must use the canonical three-level enum.
+    severity: error
+    given: "$.components.schemas.ActivityV2.properties.accessibility.enum"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+              - Few to no challenges
+              - Minor challenges
+              - Major challenges
+
+  bored-key-string:
+    description: Resource key fields must be strings (not integers).
+    severity: error
+    given: "$.components.schemas[?(@property=='ActivityV1' || @property=='ActivityV2' || @property=='Activity' || @property=='Fact' || @property=='Riddle' || @property=='Website')].properties.key.type"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^string$"
+
+  bored-riddle-difficulty-enum:
+    description: Riddle difficulty must use the canonical easy/normal/hard enum.
+    severity: error
+    given: "$.components.schemas.Riddle.properties.difficulty.enum"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+              - easy
+              - normal
+              - hard
+
+  bored-no-auth-required:
+    description: Bored API must not require authentication on any operation.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: security
+      function: falsy
