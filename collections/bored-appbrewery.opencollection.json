@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bored API (App Brewery Fork)",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Activities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bored-api.appbrewery.com/random"
+          },
+          "docs": "Returns a single random activity. No query parameters supported."
+        },
+        {
+          "info": {
+            "name": "Filter Activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bored-api.appbrewery.com/filter",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by activity category."
+              },
+              {
+                "name": "participants",
+                "value": "",
+                "type": "query",
+                "description": "Filter by exact number of participants."
+              }
+            ]
+          },
+          "docs": "Returns the list of activities matching the supplied filters. Both type and participants may be supplied independently or together."
+        },
+        {
+          "info": {
+            "name": "Get an Activity by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bored-api.appbrewery.com/activity/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the activity."
+              }
+            ]
+          },
+          "docs": "Return the activity matching the supplied unique key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

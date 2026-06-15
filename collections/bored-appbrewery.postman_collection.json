@@ -1,0 +1,282 @@
+{
+  "item": [
+    {
+      "id": "ab576e26-20e2-47e0-bad9-461c3323fae4",
+      "name": "Activities",
+      "description": {
+        "content": "Random and filtered activity suggestions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e2b86031-afd1-4508-9120-38787abc00aa",
+          "name": "Get a Random Activity",
+          "request": {
+            "name": "Get a Random Activity",
+            "description": {
+              "content": "Returns a single random activity. No query parameters supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "random"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0395e1df-ef1a-447b-b253-87a095df9807",
+              "name": "A random activity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "random"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": \"Learn Express.js\",\n  \"availability\": 0.25,\n  \"type\": \"education\",\n  \"participants\": 1,\n  \"price\": 0.1,\n  \"accessibility\": \"Few to no challenges\",\n  \"duration\": \"hours\",\n  \"kidFriendly\": true,\n  \"key\": \"3943506\",\n  \"link\": \"https://expressjs.com/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffc47041-51ed-495b-b77d-ed57a456ef20",
+          "name": "Filter Activities",
+          "request": {
+            "name": "Filter Activities",
+            "description": {
+              "content": "Returns the list of activities matching the supplied filters. Both type and participants may be supplied independently or together.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by activity category."
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<integer>",
+                  "description": "Filter by exact number of participants."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81145e05-8117-4a7c-8cd4-ecdc9e360fd2",
+              "name": "A list of activities matching the supplied filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"activity\": \"Learn Express.js\",\n    \"availability\": 0.25,\n    \"type\": \"education\",\n    \"participants\": 1,\n    \"price\": 0.1,\n    \"accessibility\": \"Few to no challenges\",\n    \"duration\": \"hours\",\n    \"kidFriendly\": true,\n    \"key\": \"3943506\",\n    \"link\": \"https://expressjs.com/\"\n  },\n  {\n    \"activity\": \"Learn Express.js\",\n    \"availability\": 0.25,\n    \"type\": \"education\",\n    \"participants\": 1,\n    \"price\": 0.1,\n    \"accessibility\": \"Few to no challenges\",\n    \"duration\": \"hours\",\n    \"kidFriendly\": true,\n    \"key\": \"3943506\",\n    \"link\": \"https://expressjs.com/\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd4353da-d67c-4d7b-bbc0-140909761105",
+          "name": "Get an Activity by Key",
+          "request": {
+            "name": "Get an Activity by Key",
+            "description": {
+              "content": "Return the activity matching the supplied unique key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "activity",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique key identifying the activity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2870936-99ed-4f93-8b97-fbd7eb9246d9",
+              "name": "The activity matching the supplied key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "activity",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique key identifying the activity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": \"Learn Express.js\",\n  \"availability\": 0.25,\n  \"type\": \"education\",\n  \"participants\": 1,\n  \"price\": 0.1,\n  \"accessibility\": \"Few to no challenges\",\n  \"duration\": \"hours\",\n  \"kidFriendly\": true,\n  \"key\": \"3943506\",\n  \"link\": \"https://expressjs.com/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bored-api.appbrewery.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f4823bf1-fd71-4be6-9a46-cc90746da1b6",
+    "name": "Bored API (App Brewery Fork)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The App Brewery Bored API is a community-hosted mirror of the original Bored API (https://www.boredapi.com/) that powers App Brewery's web development course exercises. The original boredapi.com has been unreliable since 2024 and this fork preserves the dataset and a similar API surface at https://bored-api.appbrewery.com, with a flatter path scheme (/random, /filter, /activity/{key}) and a refined activity shape that includes accessibility as text, plus duration and kidFriendly.\n\nContact Support:\n Name: The App Brewery",
+      "type": "text/plain"
+    }
+  }
+}

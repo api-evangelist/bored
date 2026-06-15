@@ -1,0 +1,418 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bored API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Activities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/activity",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter activities by category type."
+              },
+              {
+                "name": "participants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring an exact number of participants."
+              },
+              {
+                "name": "minparticipants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring at least this many participants."
+              },
+              {
+                "name": "maxparticipants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring at most this many participants."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive)."
+              },
+              {
+                "name": "minprice",
+                "value": "",
+                "type": "query",
+                "description": "V1 — minimum price (0.0–1.0, inclusive)."
+              },
+              {
+                "name": "maxprice",
+                "value": "",
+                "type": "query",
+                "description": "V1 — maximum price (0.0–1.0, inclusive)."
+              },
+              {
+                "name": "accessibility",
+                "value": "",
+                "type": "query",
+                "description": "V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible)."
+              },
+              {
+                "name": "minaccessibility",
+                "value": "",
+                "type": "query",
+                "description": "V1 — minimum accessibility (0.0–1.0)."
+              },
+              {
+                "name": "maxaccessibility",
+                "value": "",
+                "type": "query",
+                "description": "V1 — maximum accessibility (0.0–1.0)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Look up a single activity by its unique key."
+              }
+            ]
+          },
+          "docs": "Returns a single random activity, optionally filtered by type, participant count, price range, accessibility (availability), or a specific activity key. Identical to /api/v1/activity."
+        },
+        {
+          "info": {
+            "name": "Get a Random Activity (V1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v1/activity",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter activities by category type."
+              },
+              {
+                "name": "participants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring an exact number of participants."
+              },
+              {
+                "name": "minparticipants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring at least this many participants."
+              },
+              {
+                "name": "maxparticipants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring at most this many participants."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive)."
+              },
+              {
+                "name": "minprice",
+                "value": "",
+                "type": "query",
+                "description": "V1 — minimum price (0.0–1.0, inclusive)."
+              },
+              {
+                "name": "maxprice",
+                "value": "",
+                "type": "query",
+                "description": "V1 — maximum price (0.0–1.0, inclusive)."
+              },
+              {
+                "name": "accessibility",
+                "value": "",
+                "type": "query",
+                "description": "V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible)."
+              },
+              {
+                "name": "minaccessibility",
+                "value": "",
+                "type": "query",
+                "description": "V1 — minimum accessibility (0.0–1.0)."
+              },
+              {
+                "name": "maxaccessibility",
+                "value": "",
+                "type": "query",
+                "description": "V1 — maximum accessibility (0.0–1.0)."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Look up a single activity by its unique key."
+              }
+            ]
+          },
+          "docs": "V1-versioned alias of /api/activity. Returns the legacy v1 activity shape where accessibility is a number from 0.0 to 1.0."
+        },
+        {
+          "info": {
+            "name": "Get a Random Activity (V2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/activities",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter activities by category type."
+              },
+              {
+                "name": "participants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring an exact number of participants."
+              },
+              {
+                "name": "minparticipants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring at least this many participants."
+              },
+              {
+                "name": "maxparticipants",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activities requiring at most this many participants."
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "query",
+                "description": "V2 — categorical price ladder. Supplied as 1–5 `$` characters (\"$\" cheapest through \"$$$$$\" most expensive). Internally mapped to a numeric value."
+              },
+              {
+                "name": "minprice",
+                "value": "",
+                "type": "query",
+                "description": "V2 — minimum price as 1–5 `$` characters."
+              },
+              {
+                "name": "maxprice",
+                "value": "",
+                "type": "query",
+                "description": "V2 — maximum price as 1–5 `$` characters."
+              },
+              {
+                "name": "availability",
+                "value": "",
+                "type": "query",
+                "description": "V2 — exact availability score as a decimal between 0.0 and 1.0."
+              },
+              {
+                "name": "minavailability",
+                "value": "",
+                "type": "query",
+                "description": "V2 — minimum availability (0.0–1.0)."
+              },
+              {
+                "name": "maxavailability",
+                "value": "",
+                "type": "query",
+                "description": "V2 — maximum availability (0.0–1.0)."
+              }
+            ]
+          },
+          "docs": "V2 surface. Returns a single random activity wrapped in an envelope object. V2 introduces enumerated accessibility (Few to no challenges, Minor challenges, Major challenges), a categorical price ($..$$$$$), and additional fields (duration, kidFriendly)."
+        },
+        {
+          "info": {
+            "name": "Get an Activity by Key (V2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/activities/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              }
+            ]
+          },
+          "docs": "Look up a single activity by its unique key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Facts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Fact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/facts"
+          },
+          "docs": "Returns a single random fact wrapped in an envelope."
+        },
+        {
+          "info": {
+            "name": "Get a Fact by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/facts/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              }
+            ]
+          },
+          "docs": "Returns the fact matching the supplied key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Riddles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Riddle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/riddles",
+            "params": [
+              {
+                "name": "difficulty",
+                "value": "",
+                "type": "query",
+                "description": "Filter riddles by difficulty."
+              }
+            ]
+          },
+          "docs": "Returns a single random riddle, optionally filtered by difficulty (easy, normal, hard)."
+        },
+        {
+          "info": {
+            "name": "Get a Riddle by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/riddles/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              },
+              {
+                "name": "difficulty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the riddle matching the supplied key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Websites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Website",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/websites"
+          },
+          "docs": "Returns a single random website recommendation."
+        },
+        {
+          "info": {
+            "name": "Get a Website by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/websites/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              }
+            ]
+          },
+          "docs": "Returns the website matching the supplied key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Suggestions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a Content Suggestion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.boredapi.com/api/v2/suggestions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a community suggestion for a new activity, fact, riddle, or website. Exactly one of activity, fact, riddle, or website must be supplied. Suggestions are queued for moderator review and are not immediately visible in the live API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
