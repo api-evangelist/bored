@@ -18,7 +18,7 @@ kind: opensource
 created: '2026-05-28'
 modified: '2026-05-30'
 position: Consumer
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 x-type: opensource
 x-status: hosted-instance-deprecated
 x-source: public-apis/public-apis
@@ -51,7 +51,7 @@ apis:
       2024; the spec is preserved for self-hosting.
     humanURL: https://github.com/drewthoennes/Bored-API
     baseURL: https://www.boredapi.com
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Activities
       - Facts
@@ -130,7 +130,7 @@ apis:
       requests per 15 minutes. No authentication.
     humanURL: https://bored-api.appbrewery.com/
     baseURL: https://bored-api.appbrewery.com
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Activities
       - Community Fork
