@@ -92,21 +92,21 @@ apis:
         url: json-structure/bored-riddle-structure.json
       - type: JSONStructure
         url: json-structure/bored-website-structure.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-random-activity-v1-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-random-activity-v1-filtered-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-random-activity-v2-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-activity-by-key-v2-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-random-fact-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-random-riddle-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-get-random-website-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-api-submit-suggestion-example.json
     x-features:
       - No authentication required (free, open API)
@@ -147,9 +147,9 @@ apis:
       - type: RateLimits
         url: https://bored-api.appbrewery.com/
         name: 100 requests per 15 minutes
-      - type: Example
+      - type: Examples
         url: examples/bored-appbrewery-get-random-example.json
-      - type: Example
+      - type: Examples
         url: examples/bored-appbrewery-filter-example.json
     x-features:
       - Active hosted mirror (the original boredapi.com is unreliable)
@@ -183,13 +183,13 @@ common:
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
     name: Listed in public-apis/public-apis
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/bored/
     name: Python wrapper (bored on PyPI)
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/bored-api/
     name: Alternate Python wrapper (bored-api on PyPI)
-  - type: SDK
+  - type: SDKs
     url: https://gitlab.com/CMDR_Tvis/bored-api
     name: Kotlin wrapper
   - type: JSONLD
