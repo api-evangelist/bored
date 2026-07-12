@@ -162,6 +162,8 @@ apis:
       - Demos for HTTP clients, fetch/axios tutorials
       - Drop-in replacement for projects originally targeting boredapi.com
 common:
+  - type: DomainSecurity
+    url: security/bored-domain-security.yml
   - type: Website
     url: https://www.boredapi.com/
     name: Bored API Website (Historic)
