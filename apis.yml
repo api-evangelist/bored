@@ -162,6 +162,8 @@ apis:
       - Demos for HTTP clients, fetch/axios tutorials
       - Drop-in replacement for projects originally targeting boredapi.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/bored-agentic-access.yml
   - type: DomainSecurity
     url: security/bored-domain-security.yml
   - type: Website
