@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: Bored Activities Suggestions API
+  version: 2.0.0
+  summary: A Free and Simple API to Help You Find Something Better to Do
+  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.
+  contact:
+    name: Drew Thoennes
+    url: https://github.com/drewthoennes/Bored-API
+  license:
+    name: MIT
+    url: https://github.com/drewthoennes/Bored-API/blob/master/license
+  x-status: deprecated-hosted-instance
+  x-status-notes: The official hosted instance at https://www.boredapi.com/ is no longer reliably reachable. The reference implementation remains open source and can be self-hosted. The App Brewery community fork (https://bored-api.appbrewery.com) provides an actively maintained hosted mirror with a slightly different path scheme.
+servers:
+- url: https://www.boredapi.com
+  description: Original hosted instance (historically; intermittent / dead as of 2024)
+- url: http://localhost:8080
+  description: Self-hosted local instance (npm install && npm start)
+tags:
+- name: Suggestions
+  description: Community-submitted content suggestions for review (v2 only).
+paths:
+  /api/v2/suggestions:
+    post:
+      tags:
+      - Suggestions
+      summary: Submit a Content Suggestion
+      description: Submit a community suggestion for a new activity, fact, riddle, or website. Exactly one of activity, fact, riddle, or website must be supplied. Suggestions are queued for moderator review and are not immediately visible in the live API.
+      operationId: submitSuggestion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestionRequest'
+      responses:
+        '200':
+          description: Suggestion accepted and queued for review.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
+    SuggestionRequest:
+      type: object
+      description: Exactly one of activity, fact, riddle, or website must be supplied.
+      properties:
+        activity:
+          type: object
+          properties:
+            activity:
+              type: string
+            type:
+              type: string
+              enum:
+              - education
+              - recreational
+              - social
+              - diy
+              - charity
+              - cooking
+              - relaxation
+              - music
+              - busywork
+            participants:
+              type: integer
+              minimum: 1
+          required:
+          - activity
+          - type
+          - participants
+        fact:
+          type: object
+          properties:
+            fact:
+              type: string
+            source:
+              type: string
+              format: uri
+          required:
+          - fact
+          - source
+        riddle:
+          type: object
+          properties:
+            question:
+              type: string
+            answer:
+              type: string
+            source:
+              type: string
+              format: uri
+          required:
+          - question
+          - answer
+          - source
+        website:
+          type: object
+          properties:
+            url:
+              type: string
+              format: uri
+            description:
+              type: string
+          required:
+          - url
+          - description
+      oneOf:
+      - required:
+        - activity
+      - required:
+        - fact
+      - required:
+        - riddle
+      - required:
+        - website
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Successfully created suggestion
+      required:
+      - message
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

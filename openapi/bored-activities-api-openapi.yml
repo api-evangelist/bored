@@ -1,0 +1,586 @@
+openapi: 3.0.3
+info:
+  title: Bored Activities API
+  version: 2.0.0
+  summary: A Free and Simple API to Help You Find Something Better to Do
+  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.
+  contact:
+    name: Drew Thoennes
+    url: https://github.com/drewthoennes/Bored-API
+  license:
+    name: MIT
+    url: https://github.com/drewthoennes/Bored-API/blob/master/license
+  x-status: deprecated-hosted-instance
+  x-status-notes: The official hosted instance at https://www.boredapi.com/ is no longer reliably reachable. The reference implementation remains open source and can be self-hosted. The App Brewery community fork (https://bored-api.appbrewery.com) provides an actively maintained hosted mirror with a slightly different path scheme.
+servers:
+- url: https://www.boredapi.com
+  description: Original hosted instance (historically; intermittent / dead as of 2024)
+- url: http://localhost:8080
+  description: Self-hosted local instance (npm install && npm start)
+tags:
+- name: Activities
+  description: Random and filtered activity suggestions.
+paths:
+  /api/activity:
+    get:
+      tags:
+      - Activities
+      summary: Get a Random Activity
+      description: Returns a single random activity, optionally filtered by type, participant count, price range, accessibility (availability), or a specific activity key. Identical to /api/v1/activity.
+      operationId: getRandomActivity
+      parameters:
+      - $ref: '#/components/parameters/TypeParam'
+      - $ref: '#/components/parameters/ParticipantsParam'
+      - $ref: '#/components/parameters/MinParticipantsParam'
+      - $ref: '#/components/parameters/MaxParticipantsParam'
+      - $ref: '#/components/parameters/PriceParam'
+      - $ref: '#/components/parameters/MinPriceParam'
+      - $ref: '#/components/parameters/MaxPriceParam'
+      - $ref: '#/components/parameters/AccessibilityParamV1'
+      - $ref: '#/components/parameters/MinAccessibilityParamV1'
+      - $ref: '#/components/parameters/MaxAccessibilityParamV1'
+      - $ref: '#/components/parameters/KeyParam'
+      responses:
+        '200':
+          description: A random activity matching any supplied filters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV1'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v1/activity:
+    get:
+      tags:
+      - Activities
+      summary: Get a Random Activity (V1)
+      description: V1-versioned alias of /api/activity. Returns the legacy v1 activity shape where accessibility is a number from 0.0 to 1.0.
+      operationId: getRandomActivityV1
+      parameters:
+      - $ref: '#/components/parameters/TypeParam'
+      - $ref: '#/components/parameters/ParticipantsParam'
+      - $ref: '#/components/parameters/MinParticipantsParam'
+      - $ref: '#/components/parameters/MaxParticipantsParam'
+      - $ref: '#/components/parameters/PriceParam'
+      - $ref: '#/components/parameters/MinPriceParam'
+      - $ref: '#/components/parameters/MaxPriceParam'
+      - $ref: '#/components/parameters/AccessibilityParamV1'
+      - $ref: '#/components/parameters/MinAccessibilityParamV1'
+      - $ref: '#/components/parameters/MaxAccessibilityParamV1'
+      - $ref: '#/components/parameters/KeyParam'
+      responses:
+        '200':
+          description: A random activity matching any supplied filters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV1'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/activities:
+    get:
+      tags:
+      - Activities
+      summary: Get a Random Activity (V2)
+      description: V2 surface. Returns a single random activity wrapped in an envelope object. V2 introduces enumerated accessibility (Few to no challenges, Minor challenges, Major challenges), a categorical price ($..$$$$$), and additional fields (duration, kidFriendly).
+      operationId: getRandomActivityV2
+      parameters:
+      - $ref: '#/components/parameters/TypeParam'
+      - $ref: '#/components/parameters/ParticipantsParam'
+      - $ref: '#/components/parameters/MinParticipantsParam'
+      - $ref: '#/components/parameters/MaxParticipantsParam'
+      - $ref: '#/components/parameters/PriceParamV2'
+      - $ref: '#/components/parameters/MinPriceParamV2'
+      - $ref: '#/components/parameters/MaxPriceParamV2'
+      - $ref: '#/components/parameters/AvailabilityParamV2'
+      - $ref: '#/components/parameters/MinAvailabilityParamV2'
+      - $ref: '#/components/parameters/MaxAvailabilityParamV2'
+      responses:
+        '200':
+          description: A random activity wrapped in an activity envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV2Envelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/activities/{key}:
+    get:
+      tags:
+      - Activities
+      summary: Get an Activity by Key (V2)
+      description: Look up a single activity by its unique key.
+      operationId: getActivityByKeyV2
+      parameters:
+      - $ref: '#/components/parameters/KeyPathParam'
+      responses:
+        '200':
+          description: The activity matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityV2Envelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /random:
+    get:
+      tags:
+      - Activities
+      summary: Get a Random Activity
+      description: Returns a single random activity. No query parameters supported.
+      operationId: getRandom
+      responses:
+        '200':
+          description: A random activity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+  /filter:
+    get:
+      tags:
+      - Activities
+      summary: Filter Activities
+      description: Returns the list of activities matching the supplied filters. Both type and participants may be supplied independently or together.
+      operationId: filterActivities
+      parameters:
+      - name: type
+        in: query
+        required: false
+        description: Filter by activity category.
+        schema:
+          type: string
+          enum:
+          - education
+          - recreational
+          - social
+          - charity
+          - cooking
+          - relaxation
+          - busywork
+      - name: participants
+        in: query
+        required: false
+        description: Filter by exact number of participants.
+        schema:
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 8
+      responses:
+        '200':
+          description: A list of activities matching the supplied filters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+  /activity/{key}:
+    get:
+      tags:
+      - Activities
+      summary: Get an Activity by Key
+      description: Return the activity matching the supplied unique key.
+      operationId: getActivityByKey
+      parameters:
+      - name: key
+        in: path
+        required: true
+        description: Unique key identifying the activity.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The activity matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+components:
+  parameters:
+    AvailabilityParamV2:
+      name: availability
+      in: query
+      description: V2 — exact availability score as a decimal between 0.0 and 1.0.
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    TypeParam:
+      name: type
+      in: query
+      description: Filter activities by category type.
+      required: false
+      schema:
+        type: string
+        enum:
+        - charity
+        - cooking
+        - music
+        - diy
+        - education
+        - social
+        - busywork
+        - recreational
+        - relaxation
+    PriceParam:
+      name: price
+      in: query
+      description: V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxAvailabilityParamV2:
+      name: maxavailability
+      in: query
+      description: V2 — maximum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    PriceParamV2:
+      name: price
+      in: query
+      description: V2 — categorical price ladder. Supplied as 1–5 `$` characters ("$" cheapest through "$$$$$" most expensive). Internally mapped to a numeric value.
+      required: false
+      schema:
+        type: string
+        pattern: ^\$+$
+        example: $$
+    MaxPriceParam:
+      name: maxprice
+      in: query
+      description: V1 — maximum price (0.0–1.0, inclusive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    AccessibilityParamV1:
+      name: accessibility
+      in: query
+      description: V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxPriceParamV2:
+      name: maxprice
+      in: query
+      description: V2 — maximum price as 1–5 `$` characters.
+      required: false
+      schema:
+        type: string
+        pattern: ^\$+$
+    MinAvailabilityParamV2:
+      name: minavailability
+      in: query
+      description: V2 — minimum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinPriceParamV2:
+      name: minprice
+      in: query
+      description: V2 — minimum price as 1–5 `$` characters.
+      required: false
+      schema:
+        type: string
+        pattern: ^\$+$
+    MinPriceParam:
+      name: minprice
+      in: query
+      description: V1 — minimum price (0.0–1.0, inclusive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    KeyParam:
+      name: key
+      in: query
+      description: Look up a single activity by its unique key.
+      required: false
+      schema:
+        type: string
+    ParticipantsParam:
+      name: participants
+      in: query
+      description: Filter to activities requiring an exact number of participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MinParticipantsParam:
+      name: minparticipants
+      in: query
+      description: Filter to activities requiring at least this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MaxParticipantsParam:
+      name: maxparticipants
+      in: query
+      description: Filter to activities requiring at most this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MaxAccessibilityParamV1:
+      name: maxaccessibility
+      in: query
+      description: V1 — maximum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
+    MinAccessibilityParamV1:
+      name: minaccessibility
+      in: query
+      description: V1 — minimum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+  schemas:
+    ActivityV2Envelope:
+      type: object
+      properties:
+        activity:
+          $ref: '#/components/schemas/ActivityV2'
+      required:
+      - activity
+    ActivityV2:
+      type: object
+      description: V2 activity. Adds duration, kidFriendly, categorical accessibility and price.
+      properties:
+        activity:
+          type: string
+          example: Learn how to play a new sport
+        type:
+          type: string
+          enum:
+          - charity
+          - cooking
+          - music
+          - diy
+          - education
+          - social
+          - busywork
+          - recreational
+          - relaxation
+          example: recreational
+        participants:
+          type: integer
+          minimum: 1
+          example: 1
+        price:
+          type: string
+          pattern: ^\$+$
+          description: Categorical price expressed as 1–5 dollar signs.
+          example: $
+        accessibility:
+          type: string
+          enum:
+          - Few to no challenges
+          - Minor challenges
+          - Major challenges
+          example: Few to no challenges
+        duration:
+          type: string
+          enum:
+          - minutes
+          - hours
+          - days
+          - weeks
+          example: hours
+        kidFriendly:
+          type: boolean
+          example: true
+        link:
+          type: string
+          format: uri
+          example: ''
+        key:
+          type: string
+          example: '5808228'
+      required:
+      - activity
+      - type
+      - participants
+      - price
+      - accessibility
+      - duration
+      - kidFriendly
+      - key
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
+    Activity:
+      type: object
+      properties:
+        activity:
+          type: string
+          example: Learn Express.js
+        availability:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal availability score (0.0 most available, 1.0 least).
+          example: 0.25
+        type:
+          type: string
+          enum:
+          - education
+          - recreational
+          - social
+          - charity
+          - cooking
+          - relaxation
+          - busywork
+          example: education
+        participants:
+          type: integer
+          minimum: 1
+          example: 1
+        price:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          example: 0.1
+        accessibility:
+          type: string
+          enum:
+          - Few to no challenges
+          - Minor challenges
+          - Major challenges
+          example: Few to no challenges
+        duration:
+          type: string
+          enum:
+          - minutes
+          - hours
+          - days
+          - weeks
+          example: hours
+        kidFriendly:
+          type: boolean
+          example: true
+        link:
+          type: string
+          example: https://expressjs.com/
+        key:
+          type: string
+          example: '3943506'
+      required:
+      - activity
+      - availability
+      - type
+      - participants
+      - price
+      - accessibility
+      - duration
+      - kidFriendly
+      - key
+    ActivityV1:
+      type: object
+      description: V1 activity. Returned directly (no envelope).
+      properties:
+        activity:
+          type: string
+          description: Human-readable description of the activity.
+          example: Learn Express.js
+        type:
+          type: string
+          description: Category of the activity.
+          enum:
+          - charity
+          - cooking
+          - music
+          - diy
+          - education
+          - social
+          - busywork
+          - recreational
+          - relaxation
+          example: education
+        participants:
+          type: integer
+          minimum: 1
+          description: Number of participants the activity requires.
+          example: 1
+        price:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal price ladder (0.0 = free, 1.0 = expensive).
+          example: 0.1
+        accessibility:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal accessibility (0.0 = most accessible, 1.0 = least).
+          example: 0.25
+        link:
+          type: string
+          format: uri
+          description: Optional reference URL with more information.
+          example: https://expressjs.com/
+        key:
+          type: string
+          description: Unique numeric string identifying the activity.
+          example: '3943506'
+      required:
+      - activity
+      - type
+      - participants
+      - price
+      - key
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

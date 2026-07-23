@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Bored Activities Facts API
+  version: 2.0.0
+  summary: A Free and Simple API to Help You Find Something Better to Do
+  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.
+  contact:
+    name: Drew Thoennes
+    url: https://github.com/drewthoennes/Bored-API
+  license:
+    name: MIT
+    url: https://github.com/drewthoennes/Bored-API/blob/master/license
+  x-status: deprecated-hosted-instance
+  x-status-notes: The official hosted instance at https://www.boredapi.com/ is no longer reliably reachable. The reference implementation remains open source and can be self-hosted. The App Brewery community fork (https://bored-api.appbrewery.com) provides an actively maintained hosted mirror with a slightly different path scheme.
+servers:
+- url: https://www.boredapi.com
+  description: Original hosted instance (historically; intermittent / dead as of 2024)
+- url: http://localhost:8080
+  description: Self-hosted local instance (npm install && npm start)
+tags:
+- name: Facts
+  description: Random or keyed factual snippets (v2 only).
+paths:
+  /api/v2/facts:
+    get:
+      tags:
+      - Facts
+      summary: Get a Random Fact
+      description: Returns a single random fact wrapped in an envelope.
+      operationId: getRandomFact
+      responses:
+        '200':
+          description: A random fact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /api/v2/facts/{key}:
+    get:
+      tags:
+      - Facts
+      summary: Get a Fact by Key
+      description: Returns the fact matching the supplied key.
+      operationId: getFactByKey
+      parameters:
+      - $ref: '#/components/parameters/KeyPathParam'
+      responses:
+        '200':
+          description: The fact matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    FactEnvelope:
+      type: object
+      properties:
+        fact:
+          $ref: '#/components/schemas/Fact'
+      required:
+      - fact
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
+    Fact:
+      type: object
+      properties:
+        fact:
+          type: string
+          description: The factual statement.
+          example: Honey never spoils.
+        source:
+          type: string
+          format: uri
+          description: Optional URL backing the fact.
+          example: https://en.wikipedia.org/wiki/Honey
+        key:
+          type: string
+          description: Unique key for the fact.
+          example: '1234567'
+      required:
+      - fact
+      - key
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
