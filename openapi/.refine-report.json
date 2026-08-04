@@ -1,0 +1,22 @@
+{
+  "provider": "bored",
+  "sources": [
+    "bored-activities-api-openapi.yml",
+    "bored-facts-api-openapi.yml",
+    "bored-riddles-api-openapi.yml",
+    "bored-suggestions-api-openapi.yml",
+    "bored-websites-api-openapi.yml"
+  ],
+  "outputs": [
+    "bored-activities-api-openapi.yml",
+    "bored-facts-api-openapi.yml",
+    "bored-riddles-api-openapi.yml",
+    "bored-suggestions-api-openapi.yml",
+    "bored-websites-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

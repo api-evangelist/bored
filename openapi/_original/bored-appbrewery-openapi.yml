@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: Bored API (App Brewery Fork)
+  version: '1.0.0'
+  summary: Community-Hosted Mirror of the Bored API for App Brewery Students
+  description: >-
+    The App Brewery Bored API is a community-hosted mirror of the original
+    Bored API (https://www.boredapi.com/) that powers App Brewery's web
+    development course exercises. The original boredapi.com has been
+    unreliable since 2024 and this fork preserves the dataset and a similar
+    API surface at https://bored-api.appbrewery.com, with a flatter path
+    scheme (/random, /filter, /activity/{key}) and a refined activity shape
+    that includes accessibility as text, plus duration and kidFriendly.
+  contact:
+    name: The App Brewery
+    url: https://bored-api.appbrewery.com/
+  license:
+    name: MIT
+servers:
+  - url: https://bored-api.appbrewery.com
+    description: Hosted App Brewery mirror.
+tags:
+  - name: Activities
+    description: Random and filtered activity suggestions.
+paths:
+  /random:
+    get:
+      tags:
+        - Activities
+      summary: Get a Random Activity
+      description: Returns a single random activity. No query parameters supported.
+      operationId: getRandom
+      responses:
+        '200':
+          description: A random activity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+  /filter:
+    get:
+      tags:
+        - Activities
+      summary: Filter Activities
+      description: >-
+        Returns the list of activities matching the supplied filters. Both
+        type and participants may be supplied independently or together.
+      operationId: filterActivities
+      parameters:
+        - name: type
+          in: query
+          required: false
+          description: Filter by activity category.
+          schema:
+            type: string
+            enum:
+              - education
+              - recreational
+              - social
+              - charity
+              - cooking
+              - relaxation
+              - busywork
+        - name: participants
+          in: query
+          required: false
+          description: Filter by exact number of participants.
+          schema:
+            type: integer
+            enum: [1, 2, 3, 4, 5, 6, 8]
+      responses:
+        '200':
+          description: A list of activities matching the supplied filters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+  /activity/{key}:
+    get:
+      tags:
+        - Activities
+      summary: Get an Activity by Key
+      description: Return the activity matching the supplied unique key.
+      operationId: getActivityByKey
+      parameters:
+        - name: key
+          in: path
+          required: true
+          description: Unique key identifying the activity.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The activity matching the supplied key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+components:
+  schemas:
+    Activity:
+      type: object
+      properties:
+        activity:
+          type: string
+          example: Learn Express.js
+        availability:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal availability score (0.0 most available, 1.0 least).
+          example: 0.25
+        type:
+          type: string
+          enum:
+            - education
+            - recreational
+            - social
+            - charity
+            - cooking
+            - relaxation
+            - busywork
+          example: education
+        participants:
+          type: integer
+          minimum: 1
+          example: 1
+        price:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          example: 0.1
+        accessibility:
+          type: string
+          enum:
+            - Few to no challenges
+            - Minor challenges
+            - Major challenges
+          example: Few to no challenges
+        duration:
+          type: string
+          enum:
+            - minutes
+            - hours
+            - days
+            - weeks
+          example: hours
+        kidFriendly:
+          type: boolean
+          example: true
+        link:
+          type: string
+          example: https://expressjs.com/
+        key:
+          type: string
+          example: '3943506'
+      required:
+        - activity
+        - availability
+        - type
+        - participants
+        - price
+        - accessibility
+        - duration
+        - kidFriendly
+        - key
