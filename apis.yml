@@ -355,6 +355,8 @@ apis:
   - type: Examples
     url: examples/bored-appbrewery-filter-example.json
 common:
+  - type: IssueTracker
+    url: https://github.com/drewthoennes/Bored-API/issues
   - type: AgenticAccess
     url: agentic-access/bored-agentic-access.yml
   - type: DomainSecurity
