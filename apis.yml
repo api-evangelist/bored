@@ -22,7 +22,7 @@ accessModel:
   source: []
   generated: '2026-07-22'
   method: derived
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 type: Index
 access: 3rd-Party
 kind: opensource
