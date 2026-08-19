@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bored Activities Riddles API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Riddles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Riddle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/riddles",
+            "params": [
+              {
+                "name": "difficulty",
+                "value": "",
+                "type": "query",
+                "description": "Filter riddles by difficulty."
+              }
+            ]
+          },
+          "docs": "Returns a single random riddle, optionally filtered by difficulty (easy, normal, hard)."
+        },
+        {
+          "info": {
+            "name": "Get a Riddle by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/riddles/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              },
+              {
+                "name": "difficulty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the riddle matching the supplied key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

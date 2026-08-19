@@ -1,0 +1,314 @@
+{
+  "item": [
+    {
+      "id": "fe61218b-9b45-43a8-b694-622f97619548",
+      "name": "Riddles",
+      "description": {
+        "content": "Random or keyed riddles with difficulty filter (v2 only).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e5ebda2-2ccd-47b5-a3a8-e05976a0bba7",
+          "name": "Get a Random Riddle",
+          "request": {
+            "name": "Get a Random Riddle",
+            "description": {
+              "content": "Returns a single random riddle, optionally filtered by difficulty (easy, normal, hard).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "riddles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "difficulty",
+                  "value": "<string>",
+                  "description": "Filter riddles by difficulty."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "beff6db2-e027-424f-8fd4-9eec54097977",
+              "name": "A random riddle.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "riddles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "difficulty",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"riddle\": {\n    \"question\": \"What has keys but can't open locks?\",\n    \"answer\": \"A piano.\",\n    \"difficulty\": \"easy\",\n    \"key\": \"7654321\",\n    \"source\": \"http://ygoAyQxpgXYSakRO.lznanr8hQ1azMRi6FTan3aNxXosXrTl3VJhflt-8Sm1KmzUkEGGzaYzexRvlwos9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "587d333a-a2ed-43c4-beb7-a29dc7f24368",
+              "name": "Bad request or query argument error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "riddles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "difficulty",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Failed to query due to error in arguments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df2b925a-eafa-466a-a367-8c5491285526",
+          "name": "Get a Riddle by Key",
+          "request": {
+            "name": "Get a Riddle by Key",
+            "description": {
+              "content": "Returns the riddle matching the supplied key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "riddles",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "difficulty",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique key identifying the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d21010f1-9243-42fd-ac74-ce6c95093212",
+              "name": "The riddle matching the supplied key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "riddles",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "difficulty",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique key identifying the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"riddle\": {\n    \"question\": \"What has keys but can't open locks?\",\n    \"answer\": \"A piano.\",\n    \"difficulty\": \"easy\",\n    \"key\": \"7654321\",\n    \"source\": \"http://ygoAyQxpgXYSakRO.lznanr8hQ1azMRi6FTan3aNxXosXrTl3VJhflt-8Sm1KmzUkEGGzaYzexRvlwos9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cec7a486-72ec-458f-bb0c-79210cbed895",
+              "name": "Bad request or query argument error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "riddles",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "difficulty",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique key identifying the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Failed to query due to error in arguments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.boredapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f2b258d9-f9f6-4697-aba9-5972938852fb",
+    "name": "Bored Activities Riddles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.\n\nContact Support:\n Name: Drew Thoennes",
+      "type": "text/plain"
+    }
+  }
+}

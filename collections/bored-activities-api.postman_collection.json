@@ -1,0 +1,1207 @@
+{
+  "item": [
+    {
+      "id": "0de65dd4-9a50-49bd-b55f-495ed471703c",
+      "name": "Activities",
+      "description": {
+        "content": "Random and filtered activity suggestions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ab8852db-bc8f-4279-ac5f-4b1304d34770",
+          "name": "Get a Random Activity",
+          "request": {
+            "name": "Get a Random Activity",
+            "description": {
+              "content": "Returns a single random activity, optionally filtered by type, participant count, price range, accessibility (availability), or a specific activity key. Identical to /api/v1/activity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "activity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter activities by category type."
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring an exact number of participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "minparticipants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring at least this many participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxparticipants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring at most this many participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "price",
+                  "value": "<float>",
+                  "description": "V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minprice",
+                  "value": "<float>",
+                  "description": "V1 — minimum price (0.0–1.0, inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxprice",
+                  "value": "<float>",
+                  "description": "V1 — maximum price (0.0–1.0, inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "accessibility",
+                  "value": "<float>",
+                  "description": "V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minaccessibility",
+                  "value": "<float>",
+                  "description": "V1 — minimum accessibility (0.0–1.0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxaccessibility",
+                  "value": "<float>",
+                  "description": "V1 — maximum accessibility (0.0–1.0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "Look up a single activity by its unique key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1741aa5-5f27-4bdd-b82f-119981c26c8f",
+              "name": "A random activity matching any supplied filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "accessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": \"Learn Express.js\",\n  \"type\": \"education\",\n  \"participants\": 1,\n  \"price\": 0.1,\n  \"key\": \"3943506\",\n  \"accessibility\": 0.25,\n  \"link\": \"https://expressjs.com/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "833ec0aa-af17-4dbe-963a-70ae5dc8504d",
+              "name": "Bad request or query argument error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "accessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Failed to query due to error in arguments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8e82e1d-c58b-47bd-8767-76ebe6394c79",
+          "name": "Get a Random Activity (V1)",
+          "request": {
+            "name": "Get a Random Activity (V1)",
+            "description": {
+              "content": "V1-versioned alias of /api/activity. Returns the legacy v1 activity shape where accessibility is a number from 0.0 to 1.0.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "activity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter activities by category type."
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring an exact number of participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "minparticipants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring at least this many participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxparticipants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring at most this many participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "price",
+                  "value": "<float>",
+                  "description": "V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minprice",
+                  "value": "<float>",
+                  "description": "V1 — minimum price (0.0–1.0, inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxprice",
+                  "value": "<float>",
+                  "description": "V1 — maximum price (0.0–1.0, inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "accessibility",
+                  "value": "<float>",
+                  "description": "V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minaccessibility",
+                  "value": "<float>",
+                  "description": "V1 — minimum accessibility (0.0–1.0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxaccessibility",
+                  "value": "<float>",
+                  "description": "V1 — maximum accessibility (0.0–1.0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "Look up a single activity by its unique key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37bbefb6-5a93-4d0f-bcb4-1adc4d46660d",
+              "name": "A random activity matching any supplied filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "accessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": \"Learn Express.js\",\n  \"type\": \"education\",\n  \"participants\": 1,\n  \"price\": 0.1,\n  \"key\": \"3943506\",\n  \"accessibility\": 0.25,\n  \"link\": \"https://expressjs.com/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da328f1e-a09c-42b7-9aab-1f24e0adb167",
+              "name": "Bad request or query argument error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxprice",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "accessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxaccessibility",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Failed to query due to error in arguments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e8a4112-6233-49d1-bd9c-bb381fa3a44f",
+          "name": "Get a Random Activity (V2)",
+          "request": {
+            "name": "Get a Random Activity (V2)",
+            "description": {
+              "content": "V2 surface. Returns a single random activity wrapped in an envelope object. V2 introduces enumerated accessibility (Few to no challenges, Minor challenges, Major challenges), a categorical price ($..$$$$$), and additional fields (duration, kidFriendly).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "activities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter activities by category type."
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring an exact number of participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "minparticipants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring at least this many participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxparticipants",
+                  "value": "<integer>",
+                  "description": "Filter to activities requiring at most this many participants."
+                },
+                {
+                  "disabled": false,
+                  "key": "price",
+                  "value": "<string>",
+                  "description": "V2 — categorical price ladder. Supplied as 1–5 `$` characters (\"$\" cheapest through \"$$$$$\" most expensive). Internally mapped to a numeric value."
+                },
+                {
+                  "disabled": false,
+                  "key": "minprice",
+                  "value": "<string>",
+                  "description": "V2 — minimum price as 1–5 `$` characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxprice",
+                  "value": "<string>",
+                  "description": "V2 — maximum price as 1–5 `$` characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "availability",
+                  "value": "<float>",
+                  "description": "V2 — exact availability score as a decimal between 0.0 and 1.0."
+                },
+                {
+                  "disabled": false,
+                  "key": "minavailability",
+                  "value": "<float>",
+                  "description": "V2 — minimum availability (0.0–1.0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxavailability",
+                  "value": "<float>",
+                  "description": "V2 — maximum availability (0.0–1.0)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7573818-bf81-4f32-846c-36de8b191eba",
+              "name": "A random activity wrapped in an activity envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "activities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "$$"
+                    },
+                    {
+                      "key": "minprice",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxprice",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availability",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minavailability",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxavailability",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": {\n    \"activity\": \"Learn how to play a new sport\",\n    \"type\": \"recreational\",\n    \"participants\": 1,\n    \"price\": \"$\",\n    \"accessibility\": \"Few to no challenges\",\n    \"duration\": \"hours\",\n    \"kidFriendly\": true,\n    \"key\": \"5808228\",\n    \"link\": \"https://aiVJjBQQvkTMGIEUYJszOouOjTNtarKV.qhlpsntoTwLZBAq8Fss7uK4zMqqp9NIqX8w6H+tTlRrT2K1rMAOW4lCrYaxSMe,\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2c25eca-8f50-467e-8bda-b1f17f851f5c",
+              "name": "Bad request or query argument error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "activities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxparticipants",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "price",
+                      "value": "$$"
+                    },
+                    {
+                      "key": "minprice",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxprice",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availability",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "minavailability",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "maxavailability",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Failed to query due to error in arguments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ab46712-1e2a-4f1d-bee3-79ea924e29b5",
+          "name": "Get an Activity by Key (V2)",
+          "request": {
+            "name": "Get an Activity by Key (V2)",
+            "description": {
+              "content": "Look up a single activity by its unique key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "activities",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique key identifying the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf3ffa1a-bc35-4118-85db-1fafff1e35b6",
+              "name": "The activity matching the supplied key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "activities",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique key identifying the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": {\n    \"activity\": \"Learn how to play a new sport\",\n    \"type\": \"recreational\",\n    \"participants\": 1,\n    \"price\": \"$\",\n    \"accessibility\": \"Few to no challenges\",\n    \"duration\": \"hours\",\n    \"kidFriendly\": true,\n    \"key\": \"5808228\",\n    \"link\": \"https://aiVJjBQQvkTMGIEUYJszOouOjTNtarKV.qhlpsntoTwLZBAq8Fss7uK4zMqqp9NIqX8w6H+tTlRrT2K1rMAOW4lCrYaxSMe,\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3644de00-4103-41d9-bb5c-8239f0d8715b",
+              "name": "Bad request or query argument error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "activities",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique key identifying the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Failed to query due to error in arguments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff883cd3-b432-43cf-a121-9e653b6a74ce",
+          "name": "Get a Random Activity",
+          "request": {
+            "name": "Get a Random Activity",
+            "description": {
+              "content": "Returns a single random activity. No query parameters supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "random"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c66e098b-959a-4807-8ec3-0ac4746bb9c1",
+              "name": "A random activity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "random"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": \"Learn Express.js\",\n  \"availability\": 0.25,\n  \"type\": \"education\",\n  \"participants\": 1,\n  \"price\": 0.1,\n  \"accessibility\": \"Few to no challenges\",\n  \"duration\": \"hours\",\n  \"kidFriendly\": true,\n  \"key\": \"3943506\",\n  \"link\": \"https://expressjs.com/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a93eb5e4-6836-4ca0-b226-4d449df0dbce",
+          "name": "Filter Activities",
+          "request": {
+            "name": "Filter Activities",
+            "description": {
+              "content": "Returns the list of activities matching the supplied filters. Both type and participants may be supplied independently or together.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by activity category."
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<integer>",
+                  "description": "Filter by exact number of participants."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7c5aeba-35f5-41f2-8510-649725a97024",
+              "name": "A list of activities matching the supplied filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"activity\": \"Learn Express.js\",\n    \"availability\": 0.25,\n    \"type\": \"education\",\n    \"participants\": 1,\n    \"price\": 0.1,\n    \"accessibility\": \"Few to no challenges\",\n    \"duration\": \"hours\",\n    \"kidFriendly\": true,\n    \"key\": \"3943506\",\n    \"link\": \"https://expressjs.com/\"\n  },\n  {\n    \"activity\": \"Learn Express.js\",\n    \"availability\": 0.25,\n    \"type\": \"education\",\n    \"participants\": 1,\n    \"price\": 0.1,\n    \"accessibility\": \"Few to no challenges\",\n    \"duration\": \"hours\",\n    \"kidFriendly\": true,\n    \"key\": \"3943506\",\n    \"link\": \"https://expressjs.com/\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a431793-78e4-4f53-ad66-279cf623a13d",
+          "name": "Get an Activity by Key",
+          "request": {
+            "name": "Get an Activity by Key",
+            "description": {
+              "content": "Return the activity matching the supplied unique key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "activity",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique key identifying the activity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b1138b9-7e52-4c44-bb58-8e20b9f536ae",
+              "name": "The activity matching the supplied key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "activity",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique key identifying the activity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity\": \"Learn Express.js\",\n  \"availability\": 0.25,\n  \"type\": \"education\",\n  \"participants\": 1,\n  \"price\": 0.1,\n  \"accessibility\": \"Few to no challenges\",\n  \"duration\": \"hours\",\n  \"kidFriendly\": true,\n  \"key\": \"3943506\",\n  \"link\": \"https://expressjs.com/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.boredapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5c0e366b-c70c-47d3-8c7c-874826245c60",
+    "name": "Bored Activities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.\n\nContact Support:\n Name: Drew Thoennes",
+      "type": "text/plain"
+    }
+  }
+}

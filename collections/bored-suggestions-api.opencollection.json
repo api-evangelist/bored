@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bored Activities Suggestions API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Suggestions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a Content Suggestion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.boredapi.com/api/v2/suggestions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a community suggestion for a new activity, fact, riddle, or website. Exactly one of activity, fact, riddle, or website must be supplied. Suggestions are queued for moderator review and are not immediately visible in the live API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bored Activities Facts API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Facts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Fact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/facts"
+          },
+          "docs": "Returns a single random fact wrapped in an envelope."
+        },
+        {
+          "info": {
+            "name": "Get a Fact by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/facts/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              }
+            ]
+          },
+          "docs": "Returns the fact matching the supplied key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bored Activities Websites API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Websites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Random Website",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/websites"
+          },
+          "docs": "Returns a single random website recommendation."
+        },
+        {
+          "info": {
+            "name": "Get a Website by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.boredapi.com/api/v2/websites/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique key identifying the resource."
+              }
+            ]
+          },
+          "docs": "Returns the website matching the supplied key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
