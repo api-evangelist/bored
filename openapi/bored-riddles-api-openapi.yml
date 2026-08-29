@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Bored Activities Riddles API
+  title: Bored Riddles API
   version: 2.0.0
   summary: A Free and Simple API to Help You Find Something Better to Do
   description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.
@@ -77,6 +77,14 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
     Riddle:
       type: object
       properties:
@@ -107,14 +115,6 @@ components:
       - answer
       - difficulty
       - key
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Failed to query due to error in arguments
-      required:
-      - error
     RiddleEnvelope:
       type: object
       properties:
@@ -122,13 +122,6 @@ components:
           $ref: '#/components/schemas/Riddle'
       required:
       - riddle
-  responses:
-    Error:
-      description: Bad request or query argument error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     KeyPathParam:
       name: key
@@ -137,3 +130,10 @@ components:
       description: Unique key identifying the resource.
       schema:
         type: string
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

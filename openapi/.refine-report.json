@@ -1,11 +1,8 @@
 {
   "provider": "bored",
   "sources": [
-    "bored-activities-api-openapi.yml",
-    "bored-facts-api-openapi.yml",
-    "bored-riddles-api-openapi.yml",
-    "bored-suggestions-api-openapi.yml",
-    "bored-websites-api-openapi.yml"
+    "_original/bored-api-openapi.yml",
+    "_original/bored-appbrewery-openapi.yml"
   ],
   "outputs": [
     "bored-activities-api-openapi.yml",
@@ -17,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bored-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bored-appbrewery-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'Activities' spans 2 source specs (bored-api-openapi.yml, bored-appbrewery-openapi.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "bored-activities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bored-facts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bored-riddles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bored-suggestions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bored-websites-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
