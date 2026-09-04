@@ -41,7 +41,7 @@ access: 3rd-Party
 kind: opensource
 created: '2026-05-28'
 modified: '2026-05-30'
-position: Consumer
+position: Consuming
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bored.png
 x-type: opensource
 x-status: hosted-instance-deprecated
