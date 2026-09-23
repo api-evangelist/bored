@@ -3,7 +3,7 @@ info:
   title: Bored Facts API
   version: 2.0.0
   summary: A Free and Simple API to Help You Find Something Better to Do
-  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.
+  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored.
   contact:
     name: Drew Thoennes
     url: https://github.com/drewthoennes/Bored-API
@@ -56,22 +56,15 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
+  parameters:
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
   schemas:
-    FactEnvelope:
-      type: object
-      properties:
-        fact:
-          $ref: '#/components/schemas/Fact'
-      required:
-      - fact
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Failed to query due to error in arguments
-      required:
-      - error
     Fact:
       type: object
       properties:
@@ -91,14 +84,21 @@ components:
       required:
       - fact
       - key
-  parameters:
-    KeyPathParam:
-      name: key
-      in: path
-      required: true
-      description: Unique key identifying the resource.
-      schema:
-        type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
+    FactEnvelope:
+      type: object
+      properties:
+        fact:
+          $ref: '#/components/schemas/Fact'
+      required:
+      - fact
   responses:
     Error:
       description: Bad request or query argument error.

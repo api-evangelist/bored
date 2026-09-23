@@ -3,7 +3,7 @@ info:
   title: Bored Riddles API
   version: 2.0.0
   summary: A Free and Simple API to Help You Find Something Better to Do
-  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored. The canonical implementation is the open-source MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API. The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since 2024 (originally hosted on Heroku); community mirrors such as https://bored-api.appbrewery.com continue to serve the dataset. This specification documents both the v1 (legacy, activities-only) and v2 (activities + facts + riddles + websites + suggestions) surfaces of the canonical Drew Thoennes implementation so the API contract is preserved for self-hosting and historical reference.
+  description: The Bored API is a free, no-authentication public API that returns suggestions for things to do when you are bored.
   contact:
     name: Drew Thoennes
     url: https://github.com/drewthoennes/Bored-API
@@ -77,14 +77,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Failed to query due to error in arguments
-      required:
-      - error
     Riddle:
       type: object
       properties:
@@ -122,6 +114,14 @@ components:
           $ref: '#/components/schemas/Riddle'
       required:
       - riddle
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
   parameters:
     KeyPathParam:
       name: key

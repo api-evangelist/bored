@@ -18,7 +18,8 @@
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "bored-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "bored-appbrewery-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tag 'Activities' spans 2 source specs (bored-api-openapi.yml, bored-appbrewery-openapi.yml): per-path servers applied"
+    "tag 'Activities' spans 2 source specs (bored-api-openapi.yml, bored-appbrewery-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "bored-activities-api-openapi.yml: previously refined output, superseded by openapi/_original/",

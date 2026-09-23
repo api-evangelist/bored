@@ -228,7 +228,185 @@ paths:
     - url: https://bored-api.appbrewery.com
       description: Hosted App Brewery mirror.
 components:
+  parameters:
+    PriceParam:
+      name: price
+      in: query
+      description: V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
+    AvailabilityParamV2:
+      name: availability
+      in: query
+      description: V2 — exact availability score as a decimal between 0.0 and 1.0.
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    KeyParam:
+      name: key
+      in: query
+      description: Look up a single activity by its unique key.
+      required: false
+      schema:
+        type: string
+    MinPriceParam:
+      name: minprice
+      in: query
+      description: V1 — minimum price (0.0–1.0, inclusive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinPriceParamV2:
+      name: minprice
+      in: query
+      description: V2 — minimum price as 1–5 `$` characters.
+      required: false
+      schema:
+        type: string
+        pattern: ^\$+$
+    MinAvailabilityParamV2:
+      name: minavailability
+      in: query
+      description: V2 — minimum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    AccessibilityParamV1:
+      name: accessibility
+      in: query
+      description: V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxAvailabilityParamV2:
+      name: maxavailability
+      in: query
+      description: V2 — maximum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxPriceParam:
+      name: maxprice
+      in: query
+      description: V1 — maximum price (0.0–1.0, inclusive).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    ParticipantsParam:
+      name: participants
+      in: query
+      description: Filter to activities requiring an exact number of participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MaxPriceParamV2:
+      name: maxprice
+      in: query
+      description: V2 — maximum price as 1–5 `$` characters.
+      required: false
+      schema:
+        type: string
+        pattern: ^\$+$
+    TypeParam:
+      name: type
+      in: query
+      description: Filter activities by category type.
+      required: false
+      schema:
+        type: string
+        enum:
+        - charity
+        - cooking
+        - music
+        - diy
+        - education
+        - social
+        - busywork
+        - recreational
+        - relaxation
+    MinParticipantsParam:
+      name: minparticipants
+      in: query
+      description: Filter to activities requiring at least this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MinAccessibilityParamV1:
+      name: minaccessibility
+      in: query
+      description: V1 — minimum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxAccessibilityParamV1:
+      name: maxaccessibility
+      in: query
+      description: V1 — maximum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxParticipantsParam:
+      name: maxparticipants
+      in: query
+      description: Filter to activities requiring at most this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    PriceParamV2:
+      name: price
+      in: query
+      description: V2 — categorical price ladder. Supplied as 1–5 `$` characters ("$" cheapest through "$$$$$" most expensive). Internally mapped to a numeric value.
+      required: false
+      schema:
+        type: string
+        pattern: ^\$+$
+        example: $$
   schemas:
+    ActivityV2Envelope:
+      type: object
+      properties:
+        activity:
+          $ref: '#/components/schemas/ActivityV2'
+      required:
+      - activity
     ErrorResponse:
       type: object
       properties:
@@ -237,69 +415,6 @@ components:
           example: Failed to query due to error in arguments
       required:
       - error
-    ActivityV2Envelope:
-      type: object
-      properties:
-        activity:
-          $ref: '#/components/schemas/ActivityV2'
-      required:
-      - activity
-    ActivityV1:
-      type: object
-      description: V1 activity. Returned directly (no envelope).
-      properties:
-        activity:
-          type: string
-          description: Human-readable description of the activity.
-          example: Learn Express.js
-        type:
-          type: string
-          description: Category of the activity.
-          enum:
-          - charity
-          - cooking
-          - music
-          - diy
-          - education
-          - social
-          - busywork
-          - recreational
-          - relaxation
-          example: education
-        participants:
-          type: integer
-          minimum: 1
-          description: Number of participants the activity requires.
-          example: 1
-        price:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Decimal price ladder (0.0 = free, 1.0 = expensive).
-          example: 0.1
-        accessibility:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Decimal accessibility (0.0 = most accessible, 1.0 = least).
-          example: 0.25
-        link:
-          type: string
-          format: uri
-          description: Optional reference URL with more information.
-          example: https://expressjs.com/
-        key:
-          type: string
-          description: Unique numeric string identifying the activity.
-          example: '3943506'
-      required:
-      - activity
-      - type
-      - participants
-      - price
-      - key
     ActivityV2:
       type: object
       description: V2 activity. Adds duration, kidFriendly, categorical accessibility and price.
@@ -362,6 +477,62 @@ components:
       - accessibility
       - duration
       - kidFriendly
+      - key
+    ActivityV1:
+      type: object
+      description: V1 activity. Returned directly (no envelope).
+      properties:
+        activity:
+          type: string
+          description: Human-readable description of the activity.
+          example: Learn Express.js
+        type:
+          type: string
+          description: Category of the activity.
+          enum:
+          - charity
+          - cooking
+          - music
+          - diy
+          - education
+          - social
+          - busywork
+          - recreational
+          - relaxation
+          example: education
+        participants:
+          type: integer
+          minimum: 1
+          description: Number of participants the activity requires.
+          example: 1
+        price:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal price ladder (0.0 = free, 1.0 = expensive).
+          example: 0.1
+        accessibility:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Decimal accessibility (0.0 = most accessible, 1.0 = least).
+          example: 0.25
+        link:
+          type: string
+          format: uri
+          description: Optional reference URL with more information.
+          example: https://expressjs.com/
+        key:
+          type: string
+          description: Unique numeric string identifying the activity.
+          example: '3943506'
+      required:
+      - activity
+      - type
+      - participants
+      - price
       - key
     Activity:
       type: object
@@ -431,177 +602,6 @@ components:
       - duration
       - kidFriendly
       - key
-  parameters:
-    ParticipantsParam:
-      name: participants
-      in: query
-      description: Filter to activities requiring an exact number of participants.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-    AvailabilityParamV2:
-      name: availability
-      in: query
-      description: V2 — exact availability score as a decimal between 0.0 and 1.0.
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MaxAccessibilityParamV1:
-      name: maxaccessibility
-      in: query
-      description: V1 — maximum accessibility (0.0–1.0).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MaxPriceParam:
-      name: maxprice
-      in: query
-      description: V1 — maximum price (0.0–1.0, inclusive).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    TypeParam:
-      name: type
-      in: query
-      description: Filter activities by category type.
-      required: false
-      schema:
-        type: string
-        enum:
-        - charity
-        - cooking
-        - music
-        - diy
-        - education
-        - social
-        - busywork
-        - recreational
-        - relaxation
-    MinAccessibilityParamV1:
-      name: minaccessibility
-      in: query
-      description: V1 — minimum accessibility (0.0–1.0).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    AccessibilityParamV1:
-      name: accessibility
-      in: query
-      description: V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    PriceParamV2:
-      name: price
-      in: query
-      description: V2 — categorical price ladder. Supplied as 1–5 `$` characters ("$" cheapest through "$$$$$" most expensive). Internally mapped to a numeric value.
-      required: false
-      schema:
-        type: string
-        pattern: ^\$+$
-        example: $$
-    MinPriceParam:
-      name: minprice
-      in: query
-      description: V1 — minimum price (0.0–1.0, inclusive).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    KeyParam:
-      name: key
-      in: query
-      description: Look up a single activity by its unique key.
-      required: false
-      schema:
-        type: string
-    PriceParam:
-      name: price
-      in: query
-      description: V1 — exact price as a decimal between 0.0 (free) and 1.0 (expensive).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MinPriceParamV2:
-      name: minprice
-      in: query
-      description: V2 — minimum price as 1–5 `$` characters.
-      required: false
-      schema:
-        type: string
-        pattern: ^\$+$
-    MaxAvailabilityParamV2:
-      name: maxavailability
-      in: query
-      description: V2 — maximum availability (0.0–1.0).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MaxParticipantsParam:
-      name: maxparticipants
-      in: query
-      description: Filter to activities requiring at most this many participants.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-    MinAvailabilityParamV2:
-      name: minavailability
-      in: query
-      description: V2 — minimum availability (0.0–1.0).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MaxPriceParamV2:
-      name: maxprice
-      in: query
-      description: V2 — maximum price as 1–5 `$` characters.
-      required: false
-      schema:
-        type: string
-        pattern: ^\$+$
-    KeyPathParam:
-      name: key
-      in: path
-      required: true
-      description: Unique key identifying the resource.
-      schema:
-        type: string
-    MinParticipantsParam:
-      name: minparticipants
-      in: query
-      description: Filter to activities requiring at least this many participants.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
   responses:
     Error:
       description: Bad request or query argument error.
