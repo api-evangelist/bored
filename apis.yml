@@ -60,7 +60,7 @@ tags:
   - Free
   - MEVN
   - No Auth
-  - Open-Source
+  - Open Source
   - Public APIs
   - Recreation
   - Riddles
@@ -83,12 +83,13 @@ tags_raw:
   - Riddles
   - Suggestions
   - Websites
+  - Open-Source
 apis:
 - aid: bored:bored-activities-api
   name: Bored API Activities API
   description: Random and filtered activity suggestions.
   humanURL: https://github.com/drewthoennes/Bored-API
-  baseURL: https://www.boredapi.com
+  baseURL: https://bored-api.appbrewery.com
   tags:
   - Activities
   properties:
@@ -148,7 +149,6 @@ apis:
   name: Bored API Facts API
   description: Random or keyed factual snippets (v2 only).
   humanURL: https://github.com/drewthoennes/Bored-API
-  baseURL: https://www.boredapi.com
   tags:
   - Facts
   properties:
@@ -208,7 +208,6 @@ apis:
   name: Bored API Riddles API
   description: Random or keyed riddles with difficulty filter (v2 only).
   humanURL: https://github.com/drewthoennes/Bored-API
-  baseURL: https://www.boredapi.com
   tags:
   - Riddles
   properties:
@@ -268,7 +267,6 @@ apis:
   name: Bored API Suggestions API
   description: Community-submitted content suggestions for review (v2 only).
   humanURL: https://github.com/drewthoennes/Bored-API
-  baseURL: https://www.boredapi.com
   tags:
   - Suggestions
   properties:
@@ -328,7 +326,6 @@ apis:
   name: Bored API Websites API
   description: Random or keyed website recommendations (v2 only).
   humanURL: https://github.com/drewthoennes/Bored-API
-  baseURL: https://www.boredapi.com
   tags:
   - Websites
   properties:

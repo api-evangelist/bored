@@ -56,14 +56,13 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  parameters:
-    KeyPathParam:
-      name: key
-      in: path
-      required: true
-      description: Unique key identifying the resource.
-      schema:
-        type: string
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     Website:
       type: object
@@ -82,6 +81,13 @@ components:
       - url
       - description
       - key
+    WebsiteEnvelope:
+      type: object
+      properties:
+        website:
+          $ref: '#/components/schemas/Website'
+      required:
+      - website
     ErrorResponse:
       type: object
       properties:
@@ -90,17 +96,11 @@ components:
           example: Failed to query due to error in arguments
       required:
       - error
-    WebsiteEnvelope:
-      type: object
-      properties:
-        website:
-          $ref: '#/components/schemas/Website'
-      required:
-      - website
-  responses:
-    Error:
-      description: Bad request or query argument error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
