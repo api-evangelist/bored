@@ -63,14 +63,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
   schemas:
-    FactEnvelope:
-      type: object
-      properties:
-        fact:
-          $ref: '#/components/schemas/Fact'
-      required:
-      - fact
     Fact:
       type: object
       properties:
@@ -90,6 +91,13 @@ components:
       required:
       - fact
       - key
+    FactEnvelope:
+      type: object
+      properties:
+        fact:
+          $ref: '#/components/schemas/Fact'
+      required:
+      - fact
     ErrorResponse:
       type: object
       properties:
@@ -98,11 +106,3 @@ components:
           example: Failed to query due to error in arguments
       required:
       - error
-  parameters:
-    KeyPathParam:
-      name: key
-      in: path
-      required: true
-      description: Unique key identifying the resource.
-      schema:
-        type: string
