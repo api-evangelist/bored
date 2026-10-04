@@ -229,36 +229,25 @@ paths:
       description: Hosted App Brewery mirror.
 components:
   parameters:
-    KeyPathParam:
-      name: key
-      in: path
-      required: true
-      description: Unique key identifying the resource.
-      schema:
-        type: string
-    MaxParticipantsParam:
-      name: maxparticipants
+    PriceParamV2:
+      name: price
       in: query
-      description: Filter to activities requiring at most this many participants.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-    KeyParam:
-      name: key
-      in: query
-      description: Look up a single activity by its unique key.
+      description: V2 — categorical price ladder. Supplied as 1–5 `$` characters ("$" cheapest through "$$$$$" most expensive). Internally mapped to a numeric value.
       required: false
       schema:
         type: string
-    ParticipantsParam:
-      name: participants
+        pattern: ^\$+$
+        example: $$
+    MinPriceParam:
+      name: minprice
       in: query
-      description: Filter to activities requiring an exact number of participants.
+      description: V1 — minimum price (0.0–1.0, inclusive).
       required: false
       schema:
-        type: integer
-        minimum: 1
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
     MinAccessibilityParamV1:
       name: minaccessibility
       in: query
@@ -277,49 +266,10 @@ components:
       schema:
         type: string
         pattern: ^\$+$
-    PriceParamV2:
-      name: price
-      in: query
-      description: V2 — categorical price ladder. Supplied as 1–5 `$` characters ("$" cheapest through "$$$$$" most expensive). Internally mapped to a numeric value.
-      required: false
-      schema:
-        type: string
-        pattern: ^\$+$
-        example: $$
-    MaxPriceParam:
-      name: maxprice
-      in: query
-      description: V1 — maximum price (0.0–1.0, inclusive).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MinAvailabilityParamV2:
-      name: minavailability
-      in: query
-      description: V2 — minimum availability (0.0–1.0).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
     AccessibilityParamV1:
       name: accessibility
       in: query
       description: V1 — accessibility (also called availability) as a decimal between 0.0 (most accessible) and 1.0 (least accessible).
-      required: false
-      schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MaxAccessibilityParamV1:
-      name: maxaccessibility
-      in: query
-      description: V1 — maximum accessibility (0.0–1.0).
       required: false
       schema:
         type: number
@@ -336,24 +286,28 @@ components:
         format: float
         minimum: 0
         maximum: 1
-    MinPriceParam:
-      name: minprice
+    KeyParam:
+      name: key
       in: query
-      description: V1 — minimum price (0.0–1.0, inclusive).
+      description: Look up a single activity by its unique key.
       required: false
       schema:
-        type: number
-        format: float
-        minimum: 0
-        maximum: 1
-    MinParticipantsParam:
-      name: minparticipants
+        type: string
+    ParticipantsParam:
+      name: participants
       in: query
-      description: Filter to activities requiring at least this many participants.
+      description: Filter to activities requiring an exact number of participants.
       required: false
       schema:
         type: integer
         minimum: 1
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string
     TypeParam:
       name: type
       in: query
@@ -379,10 +333,30 @@ components:
       schema:
         type: string
         pattern: ^\$+$
-    MaxAvailabilityParamV2:
-      name: maxavailability
+    MaxAccessibilityParamV1:
+      name: maxaccessibility
       in: query
-      description: V2 — maximum availability (0.0–1.0).
+      description: V1 — maximum accessibility (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinAvailabilityParamV2:
+      name: minavailability
+      in: query
+      description: V2 — minimum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MaxPriceParam:
+      name: maxprice
+      in: query
+      description: V1 — maximum price (0.0–1.0, inclusive).
       required: false
       schema:
         type: number
@@ -399,14 +373,40 @@ components:
         format: float
         minimum: 0
         maximum: 1
+    MaxAvailabilityParamV2:
+      name: maxavailability
+      in: query
+      description: V2 — maximum availability (0.0–1.0).
+      required: false
+      schema:
+        type: number
+        format: float
+        minimum: 0
+        maximum: 1
+    MinParticipantsParam:
+      name: minparticipants
+      in: query
+      description: Filter to activities requiring at least this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    MaxParticipantsParam:
+      name: maxparticipants
+      in: query
+      description: Filter to activities requiring at most this many participants.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ActivityV2Envelope:
-      type: object
-      properties:
-        activity:
-          $ref: '#/components/schemas/ActivityV2'
-      required:
-      - activity
     ActivityV2:
       type: object
       description: V2 activity. Adds duration, kidFriendly, categorical accessibility and price.
@@ -470,6 +470,21 @@ components:
       - duration
       - kidFriendly
       - key
+    ActivityV2Envelope:
+      type: object
+      properties:
+        activity:
+          $ref: '#/components/schemas/ActivityV2'
+      required:
+      - activity
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Failed to query due to error in arguments
+      required:
+      - error
     ActivityV1:
       type: object
       description: V1 activity. Returned directly (no envelope).
@@ -526,14 +541,6 @@ components:
       - participants
       - price
       - key
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Failed to query due to error in arguments
-      required:
-      - error
     Activity:
       type: object
       properties:
@@ -602,13 +609,6 @@ components:
       - duration
       - kidFriendly
       - key
-  responses:
-    Error:
-      description: Bad request or query argument error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
 x-refined-from:
 - bored-api-openapi.yml
 - bored-appbrewery-openapi.yml
