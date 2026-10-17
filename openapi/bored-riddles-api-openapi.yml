@@ -76,14 +76,6 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  parameters:
-    KeyPathParam:
-      name: key
-      in: path
-      required: true
-      description: Unique key identifying the resource.
-      schema:
-        type: string
   responses:
     Error:
       description: Bad request or query argument error.
@@ -137,3 +129,11 @@ components:
           example: Failed to query due to error in arguments
       required:
       - error
+  parameters:
+    KeyPathParam:
+      name: key
+      in: path
+      required: true
+      description: Unique key identifying the resource.
+      schema:
+        type: string

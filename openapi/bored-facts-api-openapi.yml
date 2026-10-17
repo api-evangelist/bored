@@ -91,6 +91,13 @@ components:
           example: Failed to query due to error in arguments
       required:
       - error
+  responses:
+    Error:
+      description: Bad request or query argument error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     KeyPathParam:
       name: key
@@ -99,10 +106,3 @@ components:
       description: Unique key identifying the resource.
       schema:
         type: string
-  responses:
-    Error:
-      description: Bad request or query argument error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'

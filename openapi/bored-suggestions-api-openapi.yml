@@ -45,6 +45,14 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Successfully created suggestion
+      required:
+      - message
     SuggestionRequest:
       type: object
       description: Exactly one of activity, fact, riddle, or website must be supplied.
@@ -126,14 +134,6 @@ components:
           example: Failed to query due to error in arguments
       required:
       - error
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Successfully created suggestion
-      required:
-      - message
   responses:
     Error:
       description: Bad request or query argument error.
