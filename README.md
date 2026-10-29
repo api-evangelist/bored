@@ -1,4 +1,4 @@
-# Bored API (bored)
+# Bored API
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,131 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
+> **No longer operating.** This company or product has shut down, been discontinued, or been deprecated. This profile is kept as a historical record and is not maintained or rated.
+
+**Status:** hosted-instance-deprecated
+
 The Bored API is a free, open-source, no-authentication public API that serves suggestions for things to do when you are bored. The canonical reference implementation is an MEVN (MongoDB / Express / Vue / Node) project maintained by Drew Thoennes at github.com/drewthoennes/Bored-API (MIT licensed). The historically hosted instance at https://www.boredapi.com/ has been intermittently or fully unreachable since June 2024 (originally hosted on Heroku); a community fork maintained by The App Brewery at https://bored-api.appbrewery.com remains actively available for students and consumers. This profile documents the v1 surface (legacy activities-only), the v2 surface (activities + facts + riddles + websites + suggestions), and the App Brewery community mirror, so the API contract is preserved as a historical, self-hostable artifact.
 
-**APIs.json:** [https://github.com/drewthoennes/Bored-API](https://github.com/drewthoennes/Bored-API)
+**Areas:** Activities · Boredom · Community · Development · Discovery · Education · Facts · Free · MEVN · No Auth · Open Source · Public APIs
 
-## Scope
+## Bored API on APIs.io (historical record)
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Bored API is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bored/](https://apis.io/providers/bored/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Activities
-- Boredom
-- Community
-- Development
-- Discovery
-- Education
-- Facts
-- Free
-- MEVN
-- No Auth
-- Open Source
-- Public APIs
-- Recreation
-- Riddles
-- Suggestions
-- Websites
+- [Bored API Activities API](https://apis.io/apis/bored/bored-activities-api/) — Random and filtered activity suggestions.
+- [Bored API Facts API](https://apis.io/apis/bored/bored-facts-api/) — Random or keyed factual snippets (v2 only).
+- [Bored API Riddles API](https://apis.io/apis/bored/bored-riddles-api/) — Random or keyed riddles with difficulty filter (v2 only).
+- [Bored API Suggestions API](https://apis.io/apis/bored/bored-suggestions-api/) — Community-submitted content suggestions for review (v2 only).
+- [Bored API Websites API](https://apis.io/apis/bored/bored-websites-api/) — Random or keyed website recommendations (v2 only).
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-28
-- **Modified:** 2026-05-30
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Bored API (Canonical)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Canonical Drew Thoennes Bored API surface, covering v1 (legacy activities) and v2 (activities + facts + riddles + websites + suggestions). No authentication. The hosted instance at www.boredapi.com has been unreliable since 2024; the spec is preserved for self-hosting.
+- [Bored Agentic Access](https://apis.io/agentic-access/bored/bored-agentic-access/)
 
-- **Human URL:** [https://github.com/drewthoennes/Bored-API](https://github.com/drewthoennes/Bored-API)
-- **Base URL:** `https://www.boredapi.com`
+#### JSON Schema (6)
 
-#### Tags
+The data models the API reads and writes.
 
-- Activities
-- Facts
-- Riddles
-- Websites
-- Suggestions
-- REST
-- No Auth
+- [BoredActivityV1](https://apis.io/schemas/bored/bored-activity-v1/)
+- [BoredActivityV2](https://apis.io/schemas/bored/bored-activity-v2/)
+- [BoredFact](https://apis.io/schemas/bored/bored-fact/)
+- [BoredRiddle](https://apis.io/schemas/bored/bored-riddle/)
+- [BoredSuggestion](https://apis.io/schemas/bored/bored-suggestion/)
+- [BoredWebsite](https://apis.io/schemas/bored/bored-website/)
 
-#### Properties
+#### JSON Structure (5)
 
-- [Documentation](https://github.com/drewthoennes/Bored-API#readme)
-- [Source Code](https://github.com/drewthoennes/Bored-API)
-- [OpenAPI](openapi/bored-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/bored-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/bored-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/bored-activity-v1-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/bored-activity-v2-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/bored-fact-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/bored-riddle-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/bored-website-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/bored-suggestion-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/bored-activity-v1-structure.json)
-- [JSON Structure](json-structure/bored-activity-v2-structure.json)
-- [JSON Structure](json-structure/bored-fact-structure.json)
-- [JSON Structure](json-structure/bored-riddle-structure.json)
-- [JSON Structure](json-structure/bored-website-structure.json)
-- [Example](examples/bored-api-get-random-activity-v1-example.json)
-- [Example](examples/bored-api-get-random-activity-v1-filtered-example.json)
-- [Example](examples/bored-api-get-random-activity-v2-example.json)
-- [Example](examples/bored-api-get-activity-by-key-v2-example.json)
-- [Example](examples/bored-api-get-random-fact-example.json)
-- [Example](examples/bored-api-get-random-riddle-example.json)
-- [Example](examples/bored-api-get-random-website-example.json)
-- [Example](examples/bored-api-submit-suggestion-example.json)
+Data models expressed in JSON Structure.
 
-### Bored API (App Brewery Community Fork)
+- [Bored Activity V1 Structure](https://apis.io/json-structure/bored/bored-activity-v1-structure/)
+- [Bored Activity V2 Structure](https://apis.io/json-structure/bored/bored-activity-v2-structure/)
+- [Bored Fact Structure](https://apis.io/json-structure/bored/bored-fact-structure/)
+- [Bored Riddle Structure](https://apis.io/json-structure/bored/bored-riddle-structure/)
+- [Bored Website Structure](https://apis.io/json-structure/bored/bored-website-structure/)
 
-Community-hosted mirror of the Bored API maintained by The App Brewery for their web development course. Provides a flattened path scheme (/random, /filter, /activity/{key}) on bored-api.appbrewery.com and is rate-limited to 100 requests per 15 minutes. No authentication.
+#### JSON-LD (1)
 
-- **Human URL:** [https://bored-api.appbrewery.com/](https://bored-api.appbrewery.com/)
-- **Base URL:** `https://bored-api.appbrewery.com`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Bored Context](https://apis.io/jsonld/bored/bored-context/)
 
-- Activities
-- Community Fork
-- Education
-- REST
-- No Auth
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://bored-api.appbrewery.com/)
-- [OpenAPI](openapi/bored-appbrewery-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/bored-appbrewery.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/bored-appbrewery.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Rate Limits](https://bored-api.appbrewery.com/)
-- [Example](examples/bored-appbrewery-get-random-example.json)
-- [Example](examples/bored-appbrewery-filter-example.json)
+- [Bored API Vocabulary](https://apis.io/vocabularies/bored/bored-vocabulary/)
 
-## Common Properties
+#### Examples (10)
+
+Example requests and responses.
+
+- [Bored Api Get Activity By Key V2 Example](https://apis.io/examples/bored/bored-api-get-activity-by-key-v2-example/)
+- [Bored Api Get Random Activity V1 Example](https://apis.io/examples/bored/bored-api-get-random-activity-v1-example/)
+- [Bored Api Get Random Activity V1 Filtered Example](https://apis.io/examples/bored/bored-api-get-random-activity-v1-filtered-example/)
+- [Bored Api Get Random Activity V2 Example](https://apis.io/examples/bored/bored-api-get-random-activity-v2-example/)
+- [Bored Api Get Random Fact Example](https://apis.io/examples/bored/bored-api-get-random-fact-example/)
+- [Bored Api Get Random Riddle Example](https://apis.io/examples/bored/bored-api-get-random-riddle-example/)
+- [Bored Api Get Random Website Example](https://apis.io/examples/bored/bored-api-get-random-website-example/)
+- [Bored Api Submit Suggestion Example](https://apis.io/examples/bored/bored-api-submit-suggestion-example/)
+- [Bored Appbrewery Filter Example](https://apis.io/examples/bored/bored-appbrewery-filter-example/)
+- [Bored Appbrewery Get Random Example](https://apis.io/examples/bored/bored-appbrewery-get-random-example/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Bored Activities API](https://apis.io/collections/bored/open-bored-activities-api/)
+- [Bored API](https://apis.io/collections/bored/open-bored-api/)
+- [Bored API (App Brewery Fork)](https://apis.io/collections/bored/open-bored-appbrewery/)
+- [Bored Activities Facts API](https://apis.io/collections/bored/open-bored-facts-api/)
+- [Bored Activities Riddles API](https://apis.io/collections/bored/open-bored-riddles-api/)
+- [Bored Activities Suggestions API](https://apis.io/collections/bored/open-bored-suggestions-api/)
+- [Bored Activities Websites API](https://apis.io/collections/bored/open-bored-websites-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Bored API — jsonschema rules](https://apis.io/rules/bored/bored-jsonschema-spectral-rules/)
+- [Bored API API Rules](https://apis.io/rules/bored/bored-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bored Domain Security](https://apis.io/security/bored/bored-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.boredapi.com/)
-- [Portal](https://bored-api.appbrewery.com/)
-- [Git Hub](https://github.com/drewthoennes/Bored-API)
-- [Source Code](https://github.com/drewthoennes/Bored-API)
 - [Documentation](https://github.com/drewthoennes/Bored-API#readme)
-- [License](https://github.com/drewthoennes/Bored-API/blob/master/license)
-- [Public APIs Listing](https://github.com/public-apis/public-apis)
-- [SDK](https://pypi.org/project/bored/)
-- [SDK](https://pypi.org/project/bored-api/)
-- [SDK](https://gitlab.com/CMDR_Tvis/bored-api)
-- [JSON-LD](json-ld/bored-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Spectral Rules](rules/bored-rules.yml) — [Spectral](https://docs.stoplight.io/docs/spectral)
-- [Vocabulary](vocabulary/bored-vocabulary.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Not rated** — this company is recorded as no longer operating, so no score is published. If it is in fact operating, say so on this repository and it will be re-profiled.
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bored API: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bored/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
